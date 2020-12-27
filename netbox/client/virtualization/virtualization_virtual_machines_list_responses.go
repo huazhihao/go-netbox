@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // VirtualizationVirtualMachinesListReader is a Reader for the VirtualizationVirtualMachinesList structure.
@@ -106,7 +106,7 @@ type VirtualizationVirtualMachinesListOKBody struct {
 
 	// results
 	// Required: true
-	Results []*models.VirtualMachineWithConfigContext `json:"results"`
+	Results []*models.VirtualMachine `json:"results"`
 }
 
 // Validate validates this virtualization virtual machines list o k body

@@ -41,7 +41,7 @@ type RackReservation struct {
 
 	// Description
 	// Required: true
-	// Max Length: 200
+	// Max Length: 100
 	// Min Length: 1
 	Description *string `json:"description"`
 
@@ -53,20 +53,12 @@ type RackReservation struct {
 	// Required: true
 	Rack *NestedRack `json:"rack"`
 
-	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
-
 	// tenant
 	Tenant *NestedTenant `json:"tenant,omitempty"`
 
 	// units
 	// Required: true
 	Units []*int64 `json:"units"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 
 	// user
 	// Required: true
@@ -89,19 +81,11 @@ func (m *RackReservation) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateTenant(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateUnits(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -138,7 +122,7 @@ func (m *RackReservation) validateDescription(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MaxLength("description", "body", string(*m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(*m.Description), 100); err != nil {
 		return err
 	}
 
@@ -158,31 +142,6 @@ func (m *RackReservation) validateRack(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *RackReservation) validateTags(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Tags) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
-
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil
@@ -225,19 +184,6 @@ func (m *RackReservation) validateUnits(formats strfmt.Registry) error {
 			return err
 		}
 
-	}
-
-	return nil
-}
-
-func (m *RackReservation) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

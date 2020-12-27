@@ -34,14 +34,6 @@ import (
 // swagger:model Tenant
 type Tenant struct {
 
-	// Circuit count
-	// Read Only: true
-	CircuitCount int64 `json:"circuit_count,omitempty"`
-
-	// Cluster count
-	// Read Only: true
-	ClusterCount int64 `json:"cluster_count,omitempty"`
-
 	// Comments
 	Comments string `json:"comments,omitempty"`
 
@@ -54,12 +46,10 @@ type Tenant struct {
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
 	// Description
-	// Max Length: 200
+	//
+	// Long-form name (optional)
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
-
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
 
 	// group
 	Group *NestedTenantGroup `json:"group,omitempty"`
@@ -67,10 +57,6 @@ type Tenant struct {
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
-
-	// Ipaddress count
-	// Read Only: true
-	IpaddressCount int64 `json:"ipaddress_count,omitempty"`
 
 	// Last updated
 	// Read Only: true
@@ -83,18 +69,6 @@ type Tenant struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
-	// Prefix count
-	// Read Only: true
-	PrefixCount int64 `json:"prefix_count,omitempty"`
-
-	// Rack count
-	// Read Only: true
-	RackCount int64 `json:"rack_count,omitempty"`
-
-	// Site count
-	// Read Only: true
-	SiteCount int64 `json:"site_count,omitempty"`
-
 	// Slug
 	// Required: true
 	// Max Length: 50
@@ -103,24 +77,7 @@ type Tenant struct {
 	Slug *string `json:"slug"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
-
-	// Virtualmachine count
-	// Read Only: true
-	VirtualmachineCount int64 `json:"virtualmachine_count,omitempty"`
-
-	// Vlan count
-	// Read Only: true
-	VlanCount int64 `json:"vlan_count,omitempty"`
-
-	// Vrf count
-	// Read Only: true
-	VrfCount int64 `json:"vrf_count,omitempty"`
+	Tags []string `json:"tags"`
 }
 
 // Validate validates this tenant
@@ -155,10 +112,6 @@ func (m *Tenant) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateURL(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -184,7 +137,7 @@ func (m *Tenant) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -267,32 +220,11 @@ func (m *Tenant) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
+
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *Tenant) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

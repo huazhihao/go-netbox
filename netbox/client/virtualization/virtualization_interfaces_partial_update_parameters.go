@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // NewVirtualizationInterfacesPartialUpdateParams creates a new VirtualizationInterfacesPartialUpdateParams object
@@ -79,7 +79,7 @@ for the virtualization interfaces partial update operation typically these are w
 type VirtualizationInterfacesPartialUpdateParams struct {
 
 	/*Data*/
-	Data *models.WritableVMInterface
+	Data *models.WritableVirtualMachineInterface
 	/*ID
 	  A unique integer value identifying this interface.
 
@@ -125,13 +125,13 @@ func (o *VirtualizationInterfacesPartialUpdateParams) SetHTTPClient(client *http
 }
 
 // WithData adds the data to the virtualization interfaces partial update params
-func (o *VirtualizationInterfacesPartialUpdateParams) WithData(data *models.WritableVMInterface) *VirtualizationInterfacesPartialUpdateParams {
+func (o *VirtualizationInterfacesPartialUpdateParams) WithData(data *models.WritableVirtualMachineInterface) *VirtualizationInterfacesPartialUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the virtualization interfaces partial update params
-func (o *VirtualizationInterfacesPartialUpdateParams) SetData(data *models.WritableVMInterface) {
+func (o *VirtualizationInterfacesPartialUpdateParams) SetData(data *models.WritableVirtualMachineInterface) {
 	o.Data = data
 }
 

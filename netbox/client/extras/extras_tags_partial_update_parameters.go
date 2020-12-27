@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // NewExtrasTagsPartialUpdateParams creates a new ExtrasTagsPartialUpdateParams object
@@ -81,7 +81,7 @@ type ExtrasTagsPartialUpdateParams struct {
 	/*Data*/
 	Data *models.Tag
 	/*ID
-	  A unique integer value identifying this tag.
+	  A unique integer value identifying this Tag.
 
 	*/
 	ID int64

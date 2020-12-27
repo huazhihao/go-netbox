@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // NewTenancyTenantGroupsPartialUpdateParams creates a new TenancyTenantGroupsPartialUpdateParams object
@@ -79,7 +79,7 @@ for the tenancy tenant groups partial update operation typically these are writt
 type TenancyTenantGroupsPartialUpdateParams struct {
 
 	/*Data*/
-	Data *models.WritableTenantGroup
+	Data *models.TenantGroup
 	/*ID
 	  A unique integer value identifying this tenant group.
 
@@ -125,13 +125,13 @@ func (o *TenancyTenantGroupsPartialUpdateParams) SetHTTPClient(client *http.Clie
 }
 
 // WithData adds the data to the tenancy tenant groups partial update params
-func (o *TenancyTenantGroupsPartialUpdateParams) WithData(data *models.WritableTenantGroup) *TenancyTenantGroupsPartialUpdateParams {
+func (o *TenancyTenantGroupsPartialUpdateParams) WithData(data *models.TenantGroup) *TenancyTenantGroupsPartialUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the tenancy tenant groups partial update params
-func (o *TenancyTenantGroupsPartialUpdateParams) SetData(data *models.WritableTenantGroup) {
+func (o *TenancyTenantGroupsPartialUpdateParams) SetData(data *models.TenantGroup) {
 	o.Data = data
 }
 

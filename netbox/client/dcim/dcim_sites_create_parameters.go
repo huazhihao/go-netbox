@@ -30,7 +30,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // NewDcimSitesCreateParams creates a new DcimSitesCreateParams object

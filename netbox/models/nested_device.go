@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// NestedDevice Device
+// NestedDevice Master
 //
 // swagger:model NestedDevice
 type NestedDevice struct {
@@ -40,8 +40,14 @@ type NestedDevice struct {
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
 
+	// Managementip
+	// Max Length: 64
+	// Min Length: 1
+	Managementip *string `json:"managementip,omitempty"`
+
 	// Name
 	// Max Length: 64
+	// Min Length: 1
 	Name *string `json:"name,omitempty"`
 
 	// Url
@@ -53,6 +59,10 @@ type NestedDevice struct {
 // Validate validates this nested device
 func (m *NestedDevice) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateManagementip(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
@@ -68,10 +78,31 @@ func (m *NestedDevice) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *NestedDevice) validateManagementip(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Managementip) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("managementip", "body", string(*m.Managementip), 1); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("managementip", "body", string(*m.Managementip), 64); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *NestedDevice) validateName(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Name) { // not required
 		return nil
+	}
+
+	if err := validate.MinLength("name", "body", string(*m.Name), 1); err != nil {
+		return err
 	}
 
 	if err := validate.MaxLength("name", "body", string(*m.Name), 64); err != nil {

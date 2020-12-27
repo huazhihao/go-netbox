@@ -21,7 +21,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -35,32 +34,36 @@ import (
 // swagger:model Site
 type Site struct {
 
+	// Area
+	Area int64 `json:"area,omitempty"`
+
 	// ASN
-	//
-	// 32-bit autonomous system number
 	// Maximum: 4.294967295e+09
 	// Minimum: 1
 	Asn *int64 `json:"asn,omitempty"`
 
-	// Circuit count
-	// Read Only: true
-	CircuitCount int64 `json:"circuit_count,omitempty"`
-
 	// Comments
 	Comments string `json:"comments,omitempty"`
 
-	// Contact E-mail
-	// Max Length: 254
-	// Format: email
-	ContactEmail strfmt.Email `json:"contact_email,omitempty"`
+	// Count circuits
+	// Read Only: true
+	CountCircuits int64 `json:"count_circuits,omitempty"`
 
-	// Contact name
-	// Max Length: 50
-	ContactName string `json:"contact_name,omitempty"`
+	// Count devices
+	// Read Only: true
+	CountDevices int64 `json:"count_devices,omitempty"`
 
-	// Contact phone
-	// Max Length: 20
-	ContactPhone string `json:"contact_phone,omitempty"`
+	// Count prefixes
+	// Read Only: true
+	CountPrefixes int64 `json:"count_prefixes,omitempty"`
+
+	// Count racks
+	// Read Only: true
+	CountRacks int64 `json:"count_racks,omitempty"`
+
+	// Count vlans
+	// Read Only: true
+	CountVlans int64 `json:"count_vlans,omitempty"`
 
 	// Created
 	// Read Only: true
@@ -71,18 +74,23 @@ type Site struct {
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
+	// Enter date
+	// Min Length: 1
+	EnterDate string `json:"enter_date,omitempty"`
 
 	// Facility
-	//
-	// Local facility ID or description
 	// Max Length: 50
 	Facility string `json:"facility,omitempty"`
+
+	// Floors
+	Floors int64 `json:"floors,omitempty"`
+
+	// Function
+	// Min Length: 1
+	Function string `json:"function,omitempty"`
 
 	// ID
 	// Read Only: true
@@ -94,13 +102,9 @@ type Site struct {
 	LastUpdated strfmt.DateTime `json:"last_updated,omitempty"`
 
 	// Latitude
-	//
-	// GPS coordinate (latitude)
 	Latitude *string `json:"latitude,omitempty"`
 
 	// Longitude
-	//
-	// GPS coordinate (longitude)
 	Longitude *string `json:"longitude,omitempty"`
 
 	// Name
@@ -113,20 +117,27 @@ type Site struct {
 	// Max Length: 200
 	PhysicalAddress string `json:"physical_address,omitempty"`
 
-	// Prefix count
-	// Read Only: true
-	PrefixCount int64 `json:"prefix_count,omitempty"`
-
-	// Rack count
-	// Read Only: true
-	RackCount int64 `json:"rack_count,omitempty"`
+	// priority
+	Priority *NestedPriority `json:"priority,omitempty"`
 
 	// region
 	Region *NestedRegion `json:"region,omitempty"`
 
+	// Seat quantity
+	SeatQuantity int64 `json:"seat_quantity,omitempty"`
+
 	// Shipping address
 	// Max Length: 200
 	ShippingAddress string `json:"shipping_address,omitempty"`
+
+	// sitecoordinator
+	Sitecoordinator *NestedSitecoordinator `json:"sitecoordinator,omitempty"`
+
+	// sitecoordinator b
+	Sitecoordinatorb *NestedSitecoordinator `json:"sitecoordinator_b,omitempty"`
+
+	// siteowner
+	Siteowner *NestedSiteowner `json:"siteowner,omitempty"`
 
 	// Slug
 	// Required: true
@@ -139,26 +150,13 @@ type Site struct {
 	Status *SiteStatus `json:"status,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// tenant
 	Tenant *NestedTenant `json:"tenant,omitempty"`
 
 	// Time zone
 	TimeZone string `json:"time_zone,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
-
-	// Virtualmachine count
-	// Read Only: true
-	VirtualmachineCount int64 `json:"virtualmachine_count,omitempty"`
-
-	// Vlan count
-	// Read Only: true
-	VlanCount int64 `json:"vlan_count,omitempty"`
 }
 
 // Validate validates this site
@@ -166,18 +164,6 @@ func (m *Site) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAsn(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateContactEmail(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateContactName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateContactPhone(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -189,7 +175,15 @@ func (m *Site) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateEnterDate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateFacility(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFunction(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -205,11 +199,27 @@ func (m *Site) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validatePriority(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateRegion(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateShippingAddress(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSitecoordinator(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSitecoordinatorb(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSiteowner(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -226,10 +236,6 @@ func (m *Site) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTenant(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -256,49 +262,6 @@ func (m *Site) validateAsn(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Site) validateContactEmail(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ContactEmail) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("contact_email", "body", string(m.ContactEmail), 254); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("contact_email", "body", "email", m.ContactEmail.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Site) validateContactName(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ContactName) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("contact_name", "body", string(m.ContactName), 50); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Site) validateContactPhone(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ContactPhone) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("contact_phone", "body", string(m.ContactPhone), 20); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *Site) validateCreated(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Created) { // not required
@@ -318,7 +281,20 @@ func (m *Site) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Site) validateEnterDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EnterDate) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("enter_date", "body", string(m.EnterDate), 1); err != nil {
 		return err
 	}
 
@@ -332,6 +308,19 @@ func (m *Site) validateFacility(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("facility", "body", string(m.Facility), 50); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Site) validateFunction(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Function) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("function", "body", string(m.Function), 1); err != nil {
 		return err
 	}
 
@@ -381,6 +370,24 @@ func (m *Site) validatePhysicalAddress(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Site) validatePriority(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Priority) { // not required
+		return nil
+	}
+
+	if m.Priority != nil {
+		if err := m.Priority.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("priority")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Site) validateRegion(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Region) { // not required
@@ -407,6 +414,60 @@ func (m *Site) validateShippingAddress(formats strfmt.Registry) error {
 
 	if err := validate.MaxLength("shipping_address", "body", string(m.ShippingAddress), 200); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Site) validateSitecoordinator(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Sitecoordinator) { // not required
+		return nil
+	}
+
+	if m.Sitecoordinator != nil {
+		if err := m.Sitecoordinator.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sitecoordinator")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Site) validateSitecoordinatorb(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Sitecoordinatorb) { // not required
+		return nil
+	}
+
+	if m.Sitecoordinatorb != nil {
+		if err := m.Sitecoordinatorb.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sitecoordinator_b")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Site) validateSiteowner(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Siteowner) { // not required
+		return nil
+	}
+
+	if m.Siteowner != nil {
+		if err := m.Siteowner.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("siteowner")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -458,17 +519,9 @@ func (m *Site) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
 	}
@@ -489,19 +542,6 @@ func (m *Site) validateTenant(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *Site) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
@@ -532,13 +572,11 @@ type SiteStatus struct {
 
 	// label
 	// Required: true
-	// Enum: [Planned Staging Active Decommissioning Retired]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [planned staging active decommissioning retired]
-	Value *string `json:"value"`
+	Value *int64 `json:"value"`
 }
 
 // Validate validates this site status
@@ -559,104 +597,18 @@ func (m *SiteStatus) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var siteStatusTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["Planned","Staging","Active","Decommissioning","Retired"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		siteStatusTypeLabelPropEnum = append(siteStatusTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// SiteStatusLabelPlanned captures enum value "Planned"
-	SiteStatusLabelPlanned string = "Planned"
-
-	// SiteStatusLabelStaging captures enum value "Staging"
-	SiteStatusLabelStaging string = "Staging"
-
-	// SiteStatusLabelActive captures enum value "Active"
-	SiteStatusLabelActive string = "Active"
-
-	// SiteStatusLabelDecommissioning captures enum value "Decommissioning"
-	SiteStatusLabelDecommissioning string = "Decommissioning"
-
-	// SiteStatusLabelRetired captures enum value "Retired"
-	SiteStatusLabelRetired string = "Retired"
-)
-
-// prop value enum
-func (m *SiteStatus) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, siteStatusTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *SiteStatus) validateLabel(formats strfmt.Registry) error {
 
 	if err := validate.Required("status"+"."+"label", "body", m.Label); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateLabelEnum("status"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var siteStatusTypeValuePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["planned","staging","active","decommissioning","retired"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		siteStatusTypeValuePropEnum = append(siteStatusTypeValuePropEnum, v)
-	}
-}
-
-const (
-
-	// SiteStatusValuePlanned captures enum value "planned"
-	SiteStatusValuePlanned string = "planned"
-
-	// SiteStatusValueStaging captures enum value "staging"
-	SiteStatusValueStaging string = "staging"
-
-	// SiteStatusValueActive captures enum value "active"
-	SiteStatusValueActive string = "active"
-
-	// SiteStatusValueDecommissioning captures enum value "decommissioning"
-	SiteStatusValueDecommissioning string = "decommissioning"
-
-	// SiteStatusValueRetired captures enum value "retired"
-	SiteStatusValueRetired string = "retired"
-)
-
-// prop value enum
-func (m *SiteStatus) validateValueEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, siteStatusTypeValuePropEnum, true); err != nil {
-		return err
-	}
 	return nil
 }
 
 func (m *SiteStatus) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("status"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("status"+"."+"value", "body", *m.Value); err != nil {
 		return err
 	}
 

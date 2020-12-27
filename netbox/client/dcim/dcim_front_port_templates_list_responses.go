@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // DcimFrontPortTemplatesListReader is a Reader for the DcimFrontPortTemplatesList structure.

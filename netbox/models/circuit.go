@@ -21,7 +21,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -35,6 +34,12 @@ import (
 // swagger:model Circuit
 type Circuit struct {
 
+	// Action
+	Action string `json:"action,omitempty"`
+
+	// Bandwidth history
+	BandwidthHistory string `json:"bandwidth_history,omitempty"`
+
 	// Circuit ID
 	// Required: true
 	// Max Length: 50
@@ -44,10 +49,22 @@ type Circuit struct {
 	// Comments
 	Comments string `json:"comments,omitempty"`
 
-	// Commit rate (Kbps)
+	// Commit rate (Mbps)
 	// Maximum: 2.147483647e+09
 	// Minimum: 0
 	CommitRate *int64 `json:"commit_rate,omitempty"`
+
+	// Contract end date
+	// Format: date
+	ContractEndDate *strfmt.Date `json:"contract_end_date,omitempty"`
+
+	// Contract start date
+	// Format: date
+	ContractStartDate *strfmt.Date `json:"contract_start_date,omitempty"`
+
+	// Cost center
+	// Max Length: 100
+	CostCenter *string `json:"cost_center,omitempty"`
 
 	// Created
 	// Read Only: true
@@ -57,8 +74,11 @@ type Circuit struct {
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
+	// Customermanager
+	Customermanager *int64 `json:"customermanager,omitempty"`
+
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
 	// ID
@@ -74,33 +94,86 @@ type Circuit struct {
 	// Format: date-time
 	LastUpdated strfmt.DateTime `json:"last_updated,omitempty"`
 
+	// Librenms hostid
+	// Maximum: 2.147483647e+09
+	// Minimum: -2.147483648e+09
+	LibrenmsHostid *int64 `json:"librenms_hostid,omitempty"`
+
+	// Librenms itemid
+	// Maximum: 2.147483647e+09
+	// Minimum: -2.147483648e+09
+	LibrenmsItemid *int64 `json:"librenms_itemid,omitempty"`
+
+	// Line name
+	// Max Length: 50
+	LineName *string `json:"line_name,omitempty"`
+
+	// Netflow hostid
+	// Maximum: 2.147483647e+09
+	// Minimum: -2.147483648e+09
+	NetflowHostid *int64 `json:"netflow_hostid,omitempty"`
+
+	// Netflow itemid
+	// Maximum: 2.147483647e+09
+	// Minimum: -2.147483648e+09
+	NetflowItemid *int64 `json:"netflow_itemid,omitempty"`
+
+	// payment circle
+	PaymentCircle *CircuitPaymentCircle `json:"payment_circle,omitempty"`
+
 	// provider
 	// Required: true
 	Provider *NestedProvider `json:"provider"`
+
+	// Qos1 commit rate (Mbps)
+	// Maximum: 2.147483647e+09
+	// Minimum: 0
+	Qos1Bandwidth *int64 `json:"qos1_bandwidth,omitempty"`
+
+	// Qos2 commit rate (Mbps)
+	// Maximum: 2.147483647e+09
+	// Minimum: 0
+	Qos2Bandwidth *int64 `json:"qos2_bandwidth,omitempty"`
+
+	// Qos3 commit rate (Mbps)
+	// Maximum: 2.147483647e+09
+	// Minimum: 0
+	Qos3Bandwidth *int64 `json:"qos3_bandwidth,omitempty"`
+
+	// redundancy type
+	RedundancyType *CircuitRedundancyType `json:"redundancy_type,omitempty"`
 
 	// status
 	Status *CircuitStatus `json:"status,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// tenant
 	Tenant *NestedTenant `json:"tenant,omitempty"`
 
 	// termination a
-	Terminationa *CircuitCircuitTermination `json:"termination_a,omitempty"`
+	// Required: true
+	Terminationa *NestedCircuitTermination `json:"termination_a"`
 
 	// termination z
-	Terminationz *CircuitCircuitTermination `json:"termination_z,omitempty"`
+	// Required: true
+	Terminationz *NestedCircuitTermination `json:"termination_z"`
 
 	// type
 	// Required: true
 	Type *NestedCircuitType `json:"type"`
 
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
+	// Vendor availabe ips
+	// Max Length: 100
+	VendorAvailabeIps *string `json:"vendor_availabe_ips,omitempty"`
+
+	// Vendor gw
+	// Max Length: 50
+	VendorGw *string `json:"vendor_gw,omitempty"`
+
+	// vendor interface type
+	VendorInterfaceType *CircuitVendorInterfaceType `json:"vendor_interface_type,omitempty"`
 }
 
 // Validate validates this circuit
@@ -112,6 +185,18 @@ func (m *Circuit) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCommitRate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateContractEndDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateContractStartDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCostCenter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -131,7 +216,47 @@ func (m *Circuit) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateLibrenmsHostid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLibrenmsItemid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLineName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetflowHostid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNetflowItemid(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePaymentCircle(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateQos1Bandwidth(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateQos2Bandwidth(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateQos3Bandwidth(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRedundancyType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -159,7 +284,15 @@ func (m *Circuit) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateURL(formats); err != nil {
+	if err := m.validateVendorAvailabeIps(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVendorGw(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVendorInterfaceType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -203,6 +336,45 @@ func (m *Circuit) validateCommitRate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Circuit) validateContractEndDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ContractEndDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("contract_end_date", "body", "date", m.ContractEndDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateContractStartDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ContractStartDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("contract_start_date", "body", "date", m.ContractStartDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateCostCenter(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CostCenter) { // not required
+		return nil
+	}
+
+	if err := validate.MaxLength("cost_center", "body", string(*m.CostCenter), 100); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *Circuit) validateCreated(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Created) { // not required
@@ -222,7 +394,7 @@ func (m *Circuit) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -255,6 +427,105 @@ func (m *Circuit) validateLastUpdated(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Circuit) validateLibrenmsHostid(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LibrenmsHostid) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("librenms_hostid", "body", int64(*m.LibrenmsHostid), -2.147483648e+09, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("librenms_hostid", "body", int64(*m.LibrenmsHostid), 2.147483647e+09, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateLibrenmsItemid(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LibrenmsItemid) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("librenms_itemid", "body", int64(*m.LibrenmsItemid), -2.147483648e+09, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("librenms_itemid", "body", int64(*m.LibrenmsItemid), 2.147483647e+09, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateLineName(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LineName) { // not required
+		return nil
+	}
+
+	if err := validate.MaxLength("line_name", "body", string(*m.LineName), 50); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateNetflowHostid(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NetflowHostid) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("netflow_hostid", "body", int64(*m.NetflowHostid), -2.147483648e+09, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("netflow_hostid", "body", int64(*m.NetflowHostid), 2.147483647e+09, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateNetflowItemid(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NetflowItemid) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("netflow_itemid", "body", int64(*m.NetflowItemid), -2.147483648e+09, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("netflow_itemid", "body", int64(*m.NetflowItemid), 2.147483647e+09, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validatePaymentCircle(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PaymentCircle) { // not required
+		return nil
+	}
+
+	if m.PaymentCircle != nil {
+		if err := m.PaymentCircle.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("payment_circle")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Circuit) validateProvider(formats strfmt.Registry) error {
 
 	if err := validate.Required("provider", "body", m.Provider); err != nil {
@@ -265,6 +536,75 @@ func (m *Circuit) validateProvider(formats strfmt.Registry) error {
 		if err := m.Provider.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("provider")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateQos1Bandwidth(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Qos1Bandwidth) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("qos1_bandwidth", "body", int64(*m.Qos1Bandwidth), 0, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("qos1_bandwidth", "body", int64(*m.Qos1Bandwidth), 2.147483647e+09, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateQos2Bandwidth(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Qos2Bandwidth) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("qos2_bandwidth", "body", int64(*m.Qos2Bandwidth), 0, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("qos2_bandwidth", "body", int64(*m.Qos2Bandwidth), 2.147483647e+09, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateQos3Bandwidth(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Qos3Bandwidth) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("qos3_bandwidth", "body", int64(*m.Qos3Bandwidth), 0, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("qos3_bandwidth", "body", int64(*m.Qos3Bandwidth), 2.147483647e+09, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateRedundancyType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RedundancyType) { // not required
+		return nil
+	}
+
+	if m.RedundancyType != nil {
+		if err := m.RedundancyType.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("redundancy_type")
 			}
 			return err
 		}
@@ -298,17 +638,9 @@ func (m *Circuit) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
 	}
@@ -336,8 +668,8 @@ func (m *Circuit) validateTenant(formats strfmt.Registry) error {
 
 func (m *Circuit) validateTerminationa(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Terminationa) { // not required
-		return nil
+	if err := validate.Required("termination_a", "body", m.Terminationa); err != nil {
+		return err
 	}
 
 	if m.Terminationa != nil {
@@ -354,8 +686,8 @@ func (m *Circuit) validateTerminationa(formats strfmt.Registry) error {
 
 func (m *Circuit) validateTerminationz(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Terminationz) { // not required
-		return nil
+	if err := validate.Required("termination_z", "body", m.Terminationz); err != nil {
+		return err
 	}
 
 	if m.Terminationz != nil {
@@ -388,14 +720,45 @@ func (m *Circuit) validateType(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Circuit) validateURL(formats strfmt.Registry) error {
+func (m *Circuit) validateVendorAvailabeIps(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.URL) { // not required
+	if swag.IsZero(m.VendorAvailabeIps) { // not required
 		return nil
 	}
 
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
+	if err := validate.MaxLength("vendor_availabe_ips", "body", string(*m.VendorAvailabeIps), 100); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateVendorGw(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.VendorGw) { // not required
+		return nil
+	}
+
+	if err := validate.MaxLength("vendor_gw", "body", string(*m.VendorGw), 50); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateVendorInterfaceType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.VendorInterfaceType) { // not required
+		return nil
+	}
+
+	if m.VendorInterfaceType != nil {
+		if err := m.VendorInterfaceType.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("vendor_interface_type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -419,6 +782,142 @@ func (m *Circuit) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
+// CircuitPaymentCircle Payment circle
+//
+// swagger:model CircuitPaymentCircle
+type CircuitPaymentCircle struct {
+
+	// label
+	// Required: true
+	Label *string `json:"label"`
+
+	// value
+	// Required: true
+	Value *int64 `json:"value"`
+}
+
+// Validate validates this circuit payment circle
+func (m *CircuitPaymentCircle) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CircuitPaymentCircle) validateLabel(formats strfmt.Registry) error {
+
+	if err := validate.Required("payment_circle"+"."+"label", "body", m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CircuitPaymentCircle) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("payment_circle"+"."+"value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CircuitPaymentCircle) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CircuitPaymentCircle) UnmarshalBinary(b []byte) error {
+	var res CircuitPaymentCircle
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CircuitRedundancyType Redundancy type
+//
+// swagger:model CircuitRedundancyType
+type CircuitRedundancyType struct {
+
+	// label
+	// Required: true
+	Label *string `json:"label"`
+
+	// value
+	// Required: true
+	Value *int64 `json:"value"`
+}
+
+// Validate validates this circuit redundancy type
+func (m *CircuitRedundancyType) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CircuitRedundancyType) validateLabel(formats strfmt.Registry) error {
+
+	if err := validate.Required("redundancy_type"+"."+"label", "body", m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CircuitRedundancyType) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("redundancy_type"+"."+"value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CircuitRedundancyType) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CircuitRedundancyType) UnmarshalBinary(b []byte) error {
+	var res CircuitRedundancyType
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
 // CircuitStatus Status
 //
 // swagger:model CircuitStatus
@@ -426,13 +925,11 @@ type CircuitStatus struct {
 
 	// label
 	// Required: true
-	// Enum: [Planned Provisioning Active Offline Deprovisioning Decommissioned]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [planned provisioning active offline deprovisioning decommissioned]
-	Value *string `json:"value"`
+	Value *int64 `json:"value"`
 }
 
 // Validate validates this circuit status
@@ -453,110 +950,18 @@ func (m *CircuitStatus) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var circuitStatusTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["Planned","Provisioning","Active","Offline","Deprovisioning","Decommissioned"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		circuitStatusTypeLabelPropEnum = append(circuitStatusTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// CircuitStatusLabelPlanned captures enum value "Planned"
-	CircuitStatusLabelPlanned string = "Planned"
-
-	// CircuitStatusLabelProvisioning captures enum value "Provisioning"
-	CircuitStatusLabelProvisioning string = "Provisioning"
-
-	// CircuitStatusLabelActive captures enum value "Active"
-	CircuitStatusLabelActive string = "Active"
-
-	// CircuitStatusLabelOffline captures enum value "Offline"
-	CircuitStatusLabelOffline string = "Offline"
-
-	// CircuitStatusLabelDeprovisioning captures enum value "Deprovisioning"
-	CircuitStatusLabelDeprovisioning string = "Deprovisioning"
-
-	// CircuitStatusLabelDecommissioned captures enum value "Decommissioned"
-	CircuitStatusLabelDecommissioned string = "Decommissioned"
-)
-
-// prop value enum
-func (m *CircuitStatus) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, circuitStatusTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *CircuitStatus) validateLabel(formats strfmt.Registry) error {
 
 	if err := validate.Required("status"+"."+"label", "body", m.Label); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateLabelEnum("status"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var circuitStatusTypeValuePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["planned","provisioning","active","offline","deprovisioning","decommissioned"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		circuitStatusTypeValuePropEnum = append(circuitStatusTypeValuePropEnum, v)
-	}
-}
-
-const (
-
-	// CircuitStatusValuePlanned captures enum value "planned"
-	CircuitStatusValuePlanned string = "planned"
-
-	// CircuitStatusValueProvisioning captures enum value "provisioning"
-	CircuitStatusValueProvisioning string = "provisioning"
-
-	// CircuitStatusValueActive captures enum value "active"
-	CircuitStatusValueActive string = "active"
-
-	// CircuitStatusValueOffline captures enum value "offline"
-	CircuitStatusValueOffline string = "offline"
-
-	// CircuitStatusValueDeprovisioning captures enum value "deprovisioning"
-	CircuitStatusValueDeprovisioning string = "deprovisioning"
-
-	// CircuitStatusValueDecommissioned captures enum value "decommissioned"
-	CircuitStatusValueDecommissioned string = "decommissioned"
-)
-
-// prop value enum
-func (m *CircuitStatus) validateValueEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, circuitStatusTypeValuePropEnum, true); err != nil {
-		return err
-	}
 	return nil
 }
 
 func (m *CircuitStatus) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("status"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("status"+"."+"value", "body", *m.Value); err != nil {
 		return err
 	}
 
@@ -574,6 +979,74 @@ func (m *CircuitStatus) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *CircuitStatus) UnmarshalBinary(b []byte) error {
 	var res CircuitStatus
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// CircuitVendorInterfaceType Vendor interface type
+//
+// swagger:model CircuitVendorInterfaceType
+type CircuitVendorInterfaceType struct {
+
+	// label
+	// Required: true
+	Label *string `json:"label"`
+
+	// value
+	// Required: true
+	Value *int64 `json:"value"`
+}
+
+// Validate validates this circuit vendor interface type
+func (m *CircuitVendorInterfaceType) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CircuitVendorInterfaceType) validateLabel(formats strfmt.Registry) error {
+
+	if err := validate.Required("vendor_interface_type"+"."+"label", "body", m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CircuitVendorInterfaceType) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("vendor_interface_type"+"."+"value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CircuitVendorInterfaceType) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CircuitVendorInterfaceType) UnmarshalBinary(b []byte) error {
+	var res CircuitVendorInterfaceType
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -41,7 +41,7 @@ type InventoryItem struct {
 	AssetTag *string `json:"asset_tag,omitempty"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
 	// device
@@ -49,26 +49,18 @@ type InventoryItem struct {
 	Device *NestedDevice `json:"device"`
 
 	// Discovered
-	//
-	// This item was automatically discovered
 	Discovered bool `json:"discovered,omitempty"`
 
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
 
-	// Label
-	//
-	// Physical label
-	// Max Length: 64
-	Label string `json:"label,omitempty"`
-
 	// manufacturer
 	Manufacturer *NestedManufacturer `json:"manufacturer,omitempty"`
 
 	// Name
 	// Required: true
-	// Max Length: 64
+	// Max Length: 50
 	// Min Length: 1
 	Name *string `json:"name"`
 
@@ -76,8 +68,6 @@ type InventoryItem struct {
 	Parent *int64 `json:"parent,omitempty"`
 
 	// Part ID
-	//
-	// Manufacturer-assigned part identifier
 	// Max Length: 50
 	PartID string `json:"part_id,omitempty"`
 
@@ -86,12 +76,7 @@ type InventoryItem struct {
 	Serial string `json:"serial,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
+	Tags []string `json:"tags"`
 }
 
 // Validate validates this inventory item
@@ -107,10 +92,6 @@ func (m *InventoryItem) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDevice(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLabel(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -131,10 +112,6 @@ func (m *InventoryItem) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -163,7 +140,7 @@ func (m *InventoryItem) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -183,19 +160,6 @@ func (m *InventoryItem) validateDevice(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *InventoryItem) validateLabel(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Label) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("label", "body", string(m.Label), 64); err != nil {
-		return err
 	}
 
 	return nil
@@ -229,7 +193,7 @@ func (m *InventoryItem) validateName(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MaxLength("name", "body", string(*m.Name), 64); err != nil {
+	if err := validate.MaxLength("name", "body", string(*m.Name), 50); err != nil {
 		return err
 	}
 
@@ -269,32 +233,11 @@ func (m *InventoryItem) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
+
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *InventoryItem) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

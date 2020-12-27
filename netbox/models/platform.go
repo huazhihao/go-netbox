@@ -32,14 +32,6 @@ import (
 // swagger:model Platform
 type Platform struct {
 
-	// Description
-	// Max Length: 200
-	Description string `json:"description,omitempty"`
-
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
-
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -49,7 +41,7 @@ type Platform struct {
 
 	// Name
 	// Required: true
-	// Max Length: 100
+	// Max Length: 50
 	// Min Length: 1
 	Name *string `json:"name"`
 
@@ -66,28 +58,15 @@ type Platform struct {
 
 	// Slug
 	// Required: true
-	// Max Length: 100
+	// Max Length: 50
 	// Min Length: 1
 	// Pattern: ^[-a-zA-Z0-9_]+$
 	Slug *string `json:"slug"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
-
-	// Virtualmachine count
-	// Read Only: true
-	VirtualmachineCount int64 `json:"virtualmachine_count,omitempty"`
 }
 
 // Validate validates this platform
 func (m *Platform) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateDescription(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateManufacturer(formats); err != nil {
 		res = append(res, err)
@@ -105,26 +84,9 @@ func (m *Platform) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateURL(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *Platform) validateDescription(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Description) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -156,7 +118,7 @@ func (m *Platform) validateName(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MaxLength("name", "body", string(*m.Name), 100); err != nil {
+	if err := validate.MaxLength("name", "body", string(*m.Name), 50); err != nil {
 		return err
 	}
 
@@ -186,24 +148,11 @@ func (m *Platform) validateSlug(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MaxLength("slug", "body", string(*m.Slug), 100); err != nil {
+	if err := validate.MaxLength("slug", "body", string(*m.Slug), 50); err != nil {
 		return err
 	}
 
 	if err := validate.Pattern("slug", "body", string(*m.Slug), `^[-a-zA-Z0-9_]+$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Platform) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
 	}
 

@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // IpamPrefixesAvailableIpsReadReader is a Reader for the IpamPrefixesAvailableIpsRead structure.
@@ -60,21 +60,23 @@ func NewIpamPrefixesAvailableIpsReadOK() *IpamPrefixesAvailableIpsReadOK {
 IpamPrefixesAvailableIpsReadOK ipam prefixes available ips read o k
 */
 type IpamPrefixesAvailableIpsReadOK struct {
-	Payload []*models.AvailableIP
+	Payload *models.Prefix
 }
 
 func (o *IpamPrefixesAvailableIpsReadOK) Error() string {
 	return fmt.Sprintf("[GET /ipam/prefixes/{id}/available-ips/][%d] ipamPrefixesAvailableIpsReadOK  %+v", 200, o.Payload)
 }
 
-func (o *IpamPrefixesAvailableIpsReadOK) GetPayload() []*models.AvailableIP {
+func (o *IpamPrefixesAvailableIpsReadOK) GetPayload() *models.Prefix {
 	return o.Payload
 }
 
 func (o *IpamPrefixesAvailableIpsReadOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.Prefix)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -41,18 +41,6 @@ type WritableIPAddress struct {
 	// Required: true
 	Address *string `json:"address"`
 
-	// Assigned object
-	// Read Only: true
-	AssignedObject map[string]string `json:"assigned_object,omitempty"`
-
-	// Assigned object id
-	// Maximum: 2.147483647e+09
-	// Minimum: 0
-	AssignedObjectID *int64 `json:"assigned_object_id,omitempty"`
-
-	// Assigned object type
-	AssignedObjectType string `json:"assigned_object_type,omitempty"`
-
 	// Created
 	// Read Only: true
 	// Format: date
@@ -62,23 +50,19 @@ type WritableIPAddress struct {
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
-
-	// DNS Name
-	//
-	// Hostname or FQDN (not case-sensitive)
-	// Max Length: 255
-	// Pattern: ^[0-9A-Za-z._-]+$
-	DNSName string `json:"dns_name,omitempty"`
 
 	// Family
 	// Read Only: true
-	Family string `json:"family,omitempty"`
+	Family int64 `json:"family,omitempty"`
 
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
+
+	// Interface
+	Interface *int64 `json:"interface,omitempty"`
 
 	// Last updated
 	// Read Only: true
@@ -97,25 +81,20 @@ type WritableIPAddress struct {
 	// Role
 	//
 	// The functional role of this IP
-	// Enum: [loopback secondary anycast vip vrrp hsrp glbp carp]
-	Role string `json:"role,omitempty"`
+	// Enum: [10 20 30 40 41 42 43 44 45 46 47]
+	Role *int64 `json:"role,omitempty"`
 
 	// Status
 	//
 	// The operational status of this IP
-	// Enum: [active reserved deprecated dhcp slaac]
-	Status string `json:"status,omitempty"`
+	// Enum: [1 2 3 5]
+	Status int64 `json:"status,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Tenant
 	Tenant *int64 `json:"tenant,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 
 	// VRF
 	Vrf *int64 `json:"vrf,omitempty"`
@@ -129,19 +108,11 @@ func (m *WritableIPAddress) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateAssignedObjectID(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateCreated(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateDescription(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDNSName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -165,10 +136,6 @@ func (m *WritableIPAddress) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateURL(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -178,23 +145,6 @@ func (m *WritableIPAddress) Validate(formats strfmt.Registry) error {
 func (m *WritableIPAddress) validateAddress(formats strfmt.Registry) error {
 
 	if err := validate.Required("address", "body", m.Address); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableIPAddress) validateAssignedObjectID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AssignedObjectID) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("assigned_object_id", "body", int64(*m.AssignedObjectID), 0, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("assigned_object_id", "body", int64(*m.AssignedObjectID), 2.147483647e+09, false); err != nil {
 		return err
 	}
 
@@ -220,24 +170,7 @@ func (m *WritableIPAddress) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableIPAddress) validateDNSName(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.DNSName) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("dns_name", "body", string(m.DNSName), 255); err != nil {
-		return err
-	}
-
-	if err := validate.Pattern("dns_name", "body", string(m.DNSName), `^[0-9A-Za-z._-]+$`); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -269,8 +202,8 @@ func (m *WritableIPAddress) validateNatOutside(formats strfmt.Registry) error {
 var writableIpAddressTypeRolePropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["loopback","secondary","anycast","vip","vrrp","hsrp","glbp","carp"]`), &res); err != nil {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[10,20,30,40,41,42,43,44,45,46,47]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -278,35 +211,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritableIPAddressRoleLoopback captures enum value "loopback"
-	WritableIPAddressRoleLoopback string = "loopback"
-
-	// WritableIPAddressRoleSecondary captures enum value "secondary"
-	WritableIPAddressRoleSecondary string = "secondary"
-
-	// WritableIPAddressRoleAnycast captures enum value "anycast"
-	WritableIPAddressRoleAnycast string = "anycast"
-
-	// WritableIPAddressRoleVip captures enum value "vip"
-	WritableIPAddressRoleVip string = "vip"
-
-	// WritableIPAddressRoleVrrp captures enum value "vrrp"
-	WritableIPAddressRoleVrrp string = "vrrp"
-
-	// WritableIPAddressRoleHsrp captures enum value "hsrp"
-	WritableIPAddressRoleHsrp string = "hsrp"
-
-	// WritableIPAddressRoleGlbp captures enum value "glbp"
-	WritableIPAddressRoleGlbp string = "glbp"
-
-	// WritableIPAddressRoleCarp captures enum value "carp"
-	WritableIPAddressRoleCarp string = "carp"
-)
-
 // prop value enum
-func (m *WritableIPAddress) validateRoleEnum(path, location string, value string) error {
+func (m *WritableIPAddress) validateRoleEnum(path, location string, value int64) error {
 	if err := validate.EnumCase(path, location, value, writableIpAddressTypeRolePropEnum, true); err != nil {
 		return err
 	}
@@ -320,7 +226,7 @@ func (m *WritableIPAddress) validateRole(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateRoleEnum("role", "body", m.Role); err != nil {
+	if err := m.validateRoleEnum("role", "body", *m.Role); err != nil {
 		return err
 	}
 
@@ -330,8 +236,8 @@ func (m *WritableIPAddress) validateRole(formats strfmt.Registry) error {
 var writableIpAddressTypeStatusPropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["active","reserved","deprecated","dhcp","slaac"]`), &res); err != nil {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[1,2,3,5]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -339,26 +245,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritableIPAddressStatusActive captures enum value "active"
-	WritableIPAddressStatusActive string = "active"
-
-	// WritableIPAddressStatusReserved captures enum value "reserved"
-	WritableIPAddressStatusReserved string = "reserved"
-
-	// WritableIPAddressStatusDeprecated captures enum value "deprecated"
-	WritableIPAddressStatusDeprecated string = "deprecated"
-
-	// WritableIPAddressStatusDhcp captures enum value "dhcp"
-	WritableIPAddressStatusDhcp string = "dhcp"
-
-	// WritableIPAddressStatusSlaac captures enum value "slaac"
-	WritableIPAddressStatusSlaac string = "slaac"
-)
-
 // prop value enum
-func (m *WritableIPAddress) validateStatusEnum(path, location string, value string) error {
+func (m *WritableIPAddress) validateStatusEnum(path, location string, value int64) error {
 	if err := validate.EnumCase(path, location, value, writableIpAddressTypeStatusPropEnum, true); err != nil {
 		return err
 	}
@@ -386,32 +274,11 @@ func (m *WritableIPAddress) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
+
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *WritableIPAddress) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

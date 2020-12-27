@@ -30,7 +30,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // NewExtrasGraphsCreateParams creates a new ExtrasGraphsCreateParams object
@@ -78,7 +78,7 @@ for the extras graphs create operation typically these are written to a http.Req
 type ExtrasGraphsCreateParams struct {
 
 	/*Data*/
-	Data *models.Graph
+	Data *models.WritableGraph
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,13 +119,13 @@ func (o *ExtrasGraphsCreateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the extras graphs create params
-func (o *ExtrasGraphsCreateParams) WithData(data *models.Graph) *ExtrasGraphsCreateParams {
+func (o *ExtrasGraphsCreateParams) WithData(data *models.WritableGraph) *ExtrasGraphsCreateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the extras graphs create params
-func (o *ExtrasGraphsCreateParams) SetData(data *models.Graph) {
+func (o *ExtrasGraphsCreateParams) SetData(data *models.WritableGraph) {
 	o.Data = data
 }
 

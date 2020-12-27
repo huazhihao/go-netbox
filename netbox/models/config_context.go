@@ -34,25 +34,12 @@ import (
 // swagger:model ConfigContext
 type ConfigContext struct {
 
-	// cluster groups
-	// Unique: true
-	ClusterGroups []*NestedClusterGroup `json:"cluster_groups"`
-
-	// clusters
-	// Unique: true
-	Clusters []*NestedCluster `json:"clusters"`
-
-	// Created
-	// Read Only: true
-	// Format: date
-	Created strfmt.Date `json:"created,omitempty"`
-
 	// Data
 	// Required: true
 	Data *string `json:"data"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
 	// ID
@@ -61,11 +48,6 @@ type ConfigContext struct {
 
 	// Is active
 	IsActive bool `json:"is_active,omitempty"`
-
-	// Last updated
-	// Read Only: true
-	// Format: date-time
-	LastUpdated strfmt.DateTime `json:"last_updated,omitempty"`
 
 	// Name
 	// Required: true
@@ -89,10 +71,6 @@ type ConfigContext struct {
 	// Unique: true
 	Sites []*NestedSite `json:"sites"`
 
-	// tags
-	// Unique: true
-	Tags []string `json:"tags"`
-
 	// tenant groups
 	// Unique: true
 	TenantGroups []*NestedTenantGroup `json:"tenant_groups"`
@@ -100,11 +78,6 @@ type ConfigContext struct {
 	// tenants
 	// Unique: true
 	Tenants []*NestedTenant `json:"tenants"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 
 	// Weight
 	// Maximum: 32767
@@ -116,27 +89,11 @@ type ConfigContext struct {
 func (m *ConfigContext) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateClusterGroups(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateClusters(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateCreated(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateData(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateDescription(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLastUpdated(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -160,19 +117,11 @@ func (m *ConfigContext) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateTenantGroups(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateTenants(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -183,77 +132,6 @@ func (m *ConfigContext) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ConfigContext) validateClusterGroups(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ClusterGroups) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("cluster_groups", "body", m.ClusterGroups); err != nil {
-		return err
-	}
-
-	for i := 0; i < len(m.ClusterGroups); i++ {
-		if swag.IsZero(m.ClusterGroups[i]) { // not required
-			continue
-		}
-
-		if m.ClusterGroups[i] != nil {
-			if err := m.ClusterGroups[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("cluster_groups" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *ConfigContext) validateClusters(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Clusters) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("clusters", "body", m.Clusters); err != nil {
-		return err
-	}
-
-	for i := 0; i < len(m.Clusters); i++ {
-		if swag.IsZero(m.Clusters[i]) { // not required
-			continue
-		}
-
-		if m.Clusters[i] != nil {
-			if err := m.Clusters[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("clusters" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *ConfigContext) validateCreated(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Created) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("created", "body", "date", m.Created.String(), formats); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -272,20 +150,7 @@ func (m *ConfigContext) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ConfigContext) validateLastUpdated(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.LastUpdated) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("last_updated", "body", "date-time", m.LastUpdated.String(), formats); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -425,27 +290,6 @@ func (m *ConfigContext) validateSites(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ConfigContext) validateTags(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Tags) { // not required
-		return nil
-	}
-
-	if err := validate.UniqueItems("tags", "body", m.Tags); err != nil {
-		return err
-	}
-
-	for i := 0; i < len(m.Tags); i++ {
-
-		if err := validate.Pattern("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), `^[-a-zA-Z0-9_]+$`); err != nil {
-			return err
-		}
-
-	}
-
-	return nil
-}
-
 func (m *ConfigContext) validateTenantGroups(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.TenantGroups) { // not required
@@ -499,19 +343,6 @@ func (m *ConfigContext) validateTenants(formats strfmt.Registry) error {
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *ConfigContext) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

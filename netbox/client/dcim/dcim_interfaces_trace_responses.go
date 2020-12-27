@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // DcimInterfacesTraceReader is a Reader for the DcimInterfacesTrace structure.
@@ -60,20 +60,20 @@ func NewDcimInterfacesTraceOK() *DcimInterfacesTraceOK {
 DcimInterfacesTraceOK dcim interfaces trace o k
 */
 type DcimInterfacesTraceOK struct {
-	Payload *models.Interface
+	Payload *models.DeviceInterface
 }
 
 func (o *DcimInterfacesTraceOK) Error() string {
 	return fmt.Sprintf("[GET /dcim/interfaces/{id}/trace/][%d] dcimInterfacesTraceOK  %+v", 200, o.Payload)
 }
 
-func (o *DcimInterfacesTraceOK) GetPayload() *models.Interface {
+func (o *DcimInterfacesTraceOK) GetPayload() *models.DeviceInterface {
 	return o.Payload
 }
 
 func (o *DcimInterfacesTraceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Interface)
+	o.Payload = new(models.DeviceInterface)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

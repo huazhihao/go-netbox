@@ -22,7 +22,6 @@ package models
 
 import (
 	"encoding/json"
-	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -44,7 +43,7 @@ type WritableService struct {
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
 	// Device
@@ -77,16 +76,8 @@ type WritableService struct {
 
 	// Protocol
 	// Required: true
-	// Enum: [tcp udp]
-	Protocol *string `json:"protocol"`
-
-	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
+	// Enum: [6 17]
+	Protocol *int64 `json:"protocol"`
 
 	// Virtual machine
 	VirtualMachine *int64 `json:"virtual_machine,omitempty"`
@@ -124,14 +115,6 @@ func (m *WritableService) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -157,7 +140,7 @@ func (m *WritableService) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -227,8 +210,8 @@ func (m *WritableService) validatePort(formats strfmt.Registry) error {
 var writableServiceTypeProtocolPropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["tcp","udp"]`), &res); err != nil {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[6,17]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -236,17 +219,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritableServiceProtocolTCP captures enum value "tcp"
-	WritableServiceProtocolTCP string = "tcp"
-
-	// WritableServiceProtocolUDP captures enum value "udp"
-	WritableServiceProtocolUDP string = "udp"
-)
-
 // prop value enum
-func (m *WritableService) validateProtocolEnum(path, location string, value string) error {
+func (m *WritableService) validateProtocolEnum(path, location string, value int64) error {
 	if err := validate.EnumCase(path, location, value, writableServiceTypeProtocolPropEnum, true); err != nil {
 		return err
 	}
@@ -261,44 +235,6 @@ func (m *WritableService) validateProtocol(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateProtocolEnum("protocol", "body", *m.Protocol); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableService) validateTags(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Tags) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
-
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *WritableService) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
 	}
 

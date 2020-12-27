@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // NewDcimInterfacesPartialUpdateParams creates a new DcimInterfacesPartialUpdateParams object
@@ -79,7 +79,7 @@ for the dcim interfaces partial update operation typically these are written to 
 type DcimInterfacesPartialUpdateParams struct {
 
 	/*Data*/
-	Data *models.WritableInterface
+	Data *models.WritableDeviceInterface
 	/*ID
 	  A unique integer value identifying this interface.
 
@@ -125,13 +125,13 @@ func (o *DcimInterfacesPartialUpdateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the dcim interfaces partial update params
-func (o *DcimInterfacesPartialUpdateParams) WithData(data *models.WritableInterface) *DcimInterfacesPartialUpdateParams {
+func (o *DcimInterfacesPartialUpdateParams) WithData(data *models.WritableDeviceInterface) *DcimInterfacesPartialUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the dcim interfaces partial update params
-func (o *DcimInterfacesPartialUpdateParams) SetData(data *models.WritableInterface) {
+func (o *DcimInterfacesPartialUpdateParams) SetData(data *models.WritableDeviceInterface) {
 	o.Data = data
 }
 

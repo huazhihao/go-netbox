@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // IpamRolesCreateReader is a Reader for the IpamRolesCreate structure.
@@ -44,15 +44,9 @@ func (o *IpamRolesCreateReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+
 	default:
-		result := NewIpamRolesCreateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -83,46 +77,6 @@ func (o *IpamRolesCreateCreated) readResponse(response runtime.ClientResponse, c
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewIpamRolesCreateDefault creates a IpamRolesCreateDefault with default headers values
-func NewIpamRolesCreateDefault(code int) *IpamRolesCreateDefault {
-	return &IpamRolesCreateDefault{
-		_statusCode: code,
-	}
-}
-
-/*IpamRolesCreateDefault handles this case with default header values.
-
-IpamRolesCreateDefault ipam roles create default
-*/
-type IpamRolesCreateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the ipam roles create default response
-func (o *IpamRolesCreateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *IpamRolesCreateDefault) Error() string {
-	return fmt.Sprintf("[POST /ipam/roles/][%d] ipam_roles_create default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *IpamRolesCreateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *IpamRolesCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

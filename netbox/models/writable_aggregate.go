@@ -21,6 +21,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -47,12 +48,13 @@ type WritableAggregate struct {
 	DateAdded *strfmt.Date `json:"date_added,omitempty"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
 	// Family
 	// Read Only: true
-	Family string `json:"family,omitempty"`
+	// Enum: [4 6]
+	Family int64 `json:"family,omitempty"`
 
 	// ID
 	// Read Only: true
@@ -72,12 +74,7 @@ type WritableAggregate struct {
 	Rir *int64 `json:"rir"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
+	Tags []string `json:"tags"`
 }
 
 // Validate validates this writable aggregate
@@ -96,6 +93,10 @@ func (m *WritableAggregate) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateFamily(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLastUpdated(formats); err != nil {
 		res = append(res, err)
 	}
@@ -109,10 +110,6 @@ func (m *WritableAggregate) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -154,7 +151,41 @@ func (m *WritableAggregate) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var writableAggregateTypeFamilyPropEnum []interface{}
+
+func init() {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[4,6]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		writableAggregateTypeFamilyPropEnum = append(writableAggregateTypeFamilyPropEnum, v)
+	}
+}
+
+// prop value enum
+func (m *WritableAggregate) validateFamilyEnum(path, location string, value int64) error {
+	if err := validate.EnumCase(path, location, value, writableAggregateTypeFamilyPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *WritableAggregate) validateFamily(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Family) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateFamilyEnum("family", "body", m.Family); err != nil {
 		return err
 	}
 
@@ -199,32 +230,11 @@ func (m *WritableAggregate) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
+
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *WritableAggregate) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

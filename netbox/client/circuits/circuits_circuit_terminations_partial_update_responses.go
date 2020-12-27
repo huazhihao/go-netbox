@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // CircuitsCircuitTerminationsPartialUpdateReader is a Reader for the CircuitsCircuitTerminationsPartialUpdate structure.
@@ -44,15 +44,9 @@ func (o *CircuitsCircuitTerminationsPartialUpdateReader) ReadResponse(response r
 			return nil, err
 		}
 		return result, nil
+
 	default:
-		result := NewCircuitsCircuitTerminationsPartialUpdateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -83,46 +77,6 @@ func (o *CircuitsCircuitTerminationsPartialUpdateOK) readResponse(response runti
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCircuitsCircuitTerminationsPartialUpdateDefault creates a CircuitsCircuitTerminationsPartialUpdateDefault with default headers values
-func NewCircuitsCircuitTerminationsPartialUpdateDefault(code int) *CircuitsCircuitTerminationsPartialUpdateDefault {
-	return &CircuitsCircuitTerminationsPartialUpdateDefault{
-		_statusCode: code,
-	}
-}
-
-/*CircuitsCircuitTerminationsPartialUpdateDefault handles this case with default header values.
-
-CircuitsCircuitTerminationsPartialUpdateDefault circuits circuit terminations partial update default
-*/
-type CircuitsCircuitTerminationsPartialUpdateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the circuits circuit terminations partial update default response
-func (o *CircuitsCircuitTerminationsPartialUpdateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *CircuitsCircuitTerminationsPartialUpdateDefault) Error() string {
-	return fmt.Sprintf("[PATCH /circuits/circuit-terminations/{id}/][%d] circuits_circuit-terminations_partial_update default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *CircuitsCircuitTerminationsPartialUpdateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *CircuitsCircuitTerminationsPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

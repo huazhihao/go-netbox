@@ -74,12 +74,7 @@ type ImageAttachment struct {
 
 	// Parent
 	// Read Only: true
-	Parent map[string]string `json:"parent,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
+	Parent string `json:"parent,omitempty"`
 }
 
 // Validate validates this image attachment
@@ -111,10 +106,6 @@ func (m *ImageAttachment) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateObjectID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -217,19 +208,6 @@ func (m *ImageAttachment) validateObjectID(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaximumInt("object_id", "body", int64(*m.ObjectID), 2.147483647e+09, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ImageAttachment) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
 	}
 

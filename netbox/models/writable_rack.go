@@ -57,23 +57,15 @@ type WritableRack struct {
 	// Units are numbered top-to-bottom
 	DescUnits bool `json:"desc_units,omitempty"`
 
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
-
 	// Display name
 	// Read Only: true
 	DisplayName string `json:"display_name,omitempty"`
 
 	// Facility ID
-	//
-	// Locally-assigned identifier
 	// Max Length: 50
 	FacilityID *string `json:"facility_id,omitempty"`
 
 	// Group
-	//
-	// Assigned group
 	Group *int64 `json:"group,omitempty"`
 
 	// ID
@@ -92,30 +84,20 @@ type WritableRack struct {
 	Name *string `json:"name"`
 
 	// Outer depth
-	//
-	// Outer dimension of rack (depth)
 	// Maximum: 32767
 	// Minimum: 0
 	OuterDepth *int64 `json:"outer_depth,omitempty"`
 
 	// Outer unit
-	// Enum: [mm in]
-	OuterUnit string `json:"outer_unit,omitempty"`
+	// Enum: [1000 2000]
+	OuterUnit *int64 `json:"outer_unit,omitempty"`
 
 	// Outer width
-	//
-	// Outer dimension of rack (width)
 	// Maximum: 32767
 	// Minimum: 0
 	OuterWidth *int64 `json:"outer_width,omitempty"`
 
-	// Powerfeed count
-	// Read Only: true
-	PowerfeedCount int64 `json:"powerfeed_count,omitempty"`
-
 	// Role
-	//
-	// Functional role
 	Role *int64 `json:"role,omitempty"`
 
 	// Serial number
@@ -127,35 +109,28 @@ type WritableRack struct {
 	Site *int64 `json:"site"`
 
 	// Status
-	// Enum: [reserved available planned active deprecated]
-	Status string `json:"status,omitempty"`
+	// Enum: [3 2 0 1 4]
+	Status int64 `json:"status,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Tenant
 	Tenant *int64 `json:"tenant,omitempty"`
 
 	// Type
-	// Enum: [2-post-frame 4-post-frame 4-post-cabinet wall-frame wall-cabinet]
-	Type string `json:"type,omitempty"`
+	// Enum: [100 200 300 1000 1100]
+	Type *int64 `json:"type,omitempty"`
 
 	// Height (U)
-	//
-	// Height in rack units
 	// Maximum: 100
 	// Minimum: 1
 	UHeight int64 `json:"u_height,omitempty"`
 
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
-
 	// Width
 	//
 	// Rail-to-rail width
-	// Enum: [10 19 21 23]
+	// Enum: [19 23]
 	Width int64 `json:"width,omitempty"`
 }
 
@@ -216,10 +191,6 @@ func (m *WritableRack) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUHeight(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -322,8 +293,8 @@ func (m *WritableRack) validateOuterDepth(formats strfmt.Registry) error {
 var writableRackTypeOuterUnitPropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["mm","in"]`), &res); err != nil {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[1000,2000]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -331,17 +302,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritableRackOuterUnitMm captures enum value "mm"
-	WritableRackOuterUnitMm string = "mm"
-
-	// WritableRackOuterUnitIn captures enum value "in"
-	WritableRackOuterUnitIn string = "in"
-)
-
 // prop value enum
-func (m *WritableRack) validateOuterUnitEnum(path, location string, value string) error {
+func (m *WritableRack) validateOuterUnitEnum(path, location string, value int64) error {
 	if err := validate.EnumCase(path, location, value, writableRackTypeOuterUnitPropEnum, true); err != nil {
 		return err
 	}
@@ -355,7 +317,7 @@ func (m *WritableRack) validateOuterUnit(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateOuterUnitEnum("outer_unit", "body", m.OuterUnit); err != nil {
+	if err := m.validateOuterUnitEnum("outer_unit", "body", *m.OuterUnit); err != nil {
 		return err
 	}
 
@@ -404,8 +366,8 @@ func (m *WritableRack) validateSite(formats strfmt.Registry) error {
 var writableRackTypeStatusPropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["reserved","available","planned","active","deprecated"]`), &res); err != nil {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[3,2,0,1,4]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -413,26 +375,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritableRackStatusReserved captures enum value "reserved"
-	WritableRackStatusReserved string = "reserved"
-
-	// WritableRackStatusAvailable captures enum value "available"
-	WritableRackStatusAvailable string = "available"
-
-	// WritableRackStatusPlanned captures enum value "planned"
-	WritableRackStatusPlanned string = "planned"
-
-	// WritableRackStatusActive captures enum value "active"
-	WritableRackStatusActive string = "active"
-
-	// WritableRackStatusDeprecated captures enum value "deprecated"
-	WritableRackStatusDeprecated string = "deprecated"
-)
-
 // prop value enum
-func (m *WritableRack) validateStatusEnum(path, location string, value string) error {
+func (m *WritableRack) validateStatusEnum(path, location string, value int64) error {
 	if err := validate.EnumCase(path, location, value, writableRackTypeStatusPropEnum, true); err != nil {
 		return err
 	}
@@ -460,17 +404,9 @@ func (m *WritableRack) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
 	}
@@ -481,8 +417,8 @@ func (m *WritableRack) validateTags(formats strfmt.Registry) error {
 var writableRackTypeTypePropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-cabinet"]`), &res); err != nil {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[100,200,300,1000,1100]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -490,26 +426,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritableRackTypeNr2PostFrame captures enum value "2-post-frame"
-	WritableRackTypeNr2PostFrame string = "2-post-frame"
-
-	// WritableRackTypeNr4PostFrame captures enum value "4-post-frame"
-	WritableRackTypeNr4PostFrame string = "4-post-frame"
-
-	// WritableRackTypeNr4PostCabinet captures enum value "4-post-cabinet"
-	WritableRackTypeNr4PostCabinet string = "4-post-cabinet"
-
-	// WritableRackTypeWallFrame captures enum value "wall-frame"
-	WritableRackTypeWallFrame string = "wall-frame"
-
-	// WritableRackTypeWallCabinet captures enum value "wall-cabinet"
-	WritableRackTypeWallCabinet string = "wall-cabinet"
-)
-
 // prop value enum
-func (m *WritableRack) validateTypeEnum(path, location string, value string) error {
+func (m *WritableRack) validateTypeEnum(path, location string, value int64) error {
 	if err := validate.EnumCase(path, location, value, writableRackTypeTypePropEnum, true); err != nil {
 		return err
 	}
@@ -523,7 +441,7 @@ func (m *WritableRack) validateType(formats strfmt.Registry) error {
 	}
 
 	// value enum
-	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
+	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
 		return err
 	}
 
@@ -547,24 +465,11 @@ func (m *WritableRack) validateUHeight(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *WritableRack) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 var writableRackTypeWidthPropEnum []interface{}
 
 func init() {
 	var res []int64
-	if err := json.Unmarshal([]byte(`[10,19,21,23]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`[19,23]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

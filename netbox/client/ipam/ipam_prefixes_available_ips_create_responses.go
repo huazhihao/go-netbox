@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // IpamPrefixesAvailableIpsCreateReader is a Reader for the IpamPrefixesAvailableIpsCreate structure.
@@ -44,15 +44,9 @@ func (o *IpamPrefixesAvailableIpsCreateReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return result, nil
+
 	default:
-		result := NewIpamPrefixesAvailableIpsCreateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -66,61 +60,23 @@ func NewIpamPrefixesAvailableIpsCreateCreated() *IpamPrefixesAvailableIpsCreateC
 IpamPrefixesAvailableIpsCreateCreated ipam prefixes available ips create created
 */
 type IpamPrefixesAvailableIpsCreateCreated struct {
-	Payload []*models.AvailableIP
+	Payload *models.Prefix
 }
 
 func (o *IpamPrefixesAvailableIpsCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /ipam/prefixes/{id}/available-ips/][%d] ipamPrefixesAvailableIpsCreateCreated  %+v", 201, o.Payload)
 }
 
-func (o *IpamPrefixesAvailableIpsCreateCreated) GetPayload() []*models.AvailableIP {
+func (o *IpamPrefixesAvailableIpsCreateCreated) GetPayload() *models.Prefix {
 	return o.Payload
 }
 
 func (o *IpamPrefixesAvailableIpsCreateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewIpamPrefixesAvailableIpsCreateDefault creates a IpamPrefixesAvailableIpsCreateDefault with default headers values
-func NewIpamPrefixesAvailableIpsCreateDefault(code int) *IpamPrefixesAvailableIpsCreateDefault {
-	return &IpamPrefixesAvailableIpsCreateDefault{
-		_statusCode: code,
-	}
-}
-
-/*IpamPrefixesAvailableIpsCreateDefault handles this case with default header values.
-
-IpamPrefixesAvailableIpsCreateDefault ipam prefixes available ips create default
-*/
-type IpamPrefixesAvailableIpsCreateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the ipam prefixes available ips create default response
-func (o *IpamPrefixesAvailableIpsCreateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *IpamPrefixesAvailableIpsCreateDefault) Error() string {
-	return fmt.Sprintf("[POST /ipam/prefixes/{id}/available-ips/][%d] ipam_prefixes_available-ips_create default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *IpamPrefixesAvailableIpsCreateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *IpamPrefixesAvailableIpsCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	o.Payload = new(models.Prefix)
 
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

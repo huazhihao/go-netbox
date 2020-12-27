@@ -30,7 +30,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // NewTenancyTenantGroupsCreateParams creates a new TenancyTenantGroupsCreateParams object
@@ -78,7 +78,7 @@ for the tenancy tenant groups create operation typically these are written to a 
 type TenancyTenantGroupsCreateParams struct {
 
 	/*Data*/
-	Data *models.WritableTenantGroup
+	Data *models.TenantGroup
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,13 +119,13 @@ func (o *TenancyTenantGroupsCreateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the tenancy tenant groups create params
-func (o *TenancyTenantGroupsCreateParams) WithData(data *models.WritableTenantGroup) *TenancyTenantGroupsCreateParams {
+func (o *TenancyTenantGroupsCreateParams) WithData(data *models.TenantGroup) *TenancyTenantGroupsCreateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the tenancy tenant groups create params
-func (o *TenancyTenantGroupsCreateParams) SetData(data *models.WritableTenantGroup) {
+func (o *TenancyTenantGroupsCreateParams) SetData(data *models.TenantGroup) {
 	o.Data = data
 }
 

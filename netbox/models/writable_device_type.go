@@ -46,22 +46,17 @@ type WritableDeviceType struct {
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
-
 	// Display name
 	// Read Only: true
 	DisplayName string `json:"display_name,omitempty"`
 
-	// Front image
-	// Read Only: true
-	// Format: uri
-	FrontImage strfmt.URI `json:"front_image,omitempty"`
-
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
+
+	// Instance count
+	// Read Only: true
+	InstanceCount int64 `json:"instance_count,omitempty"`
 
 	// Is full depth
 	//
@@ -89,11 +84,6 @@ type WritableDeviceType struct {
 	// Max Length: 50
 	PartNumber string `json:"part_number,omitempty"`
 
-	// Rear image
-	// Read Only: true
-	// Format: uri
-	RearImage strfmt.URI `json:"rear_image,omitempty"`
-
 	// Slug
 	// Required: true
 	// Max Length: 50
@@ -101,24 +91,24 @@ type WritableDeviceType struct {
 	// Pattern: ^[-a-zA-Z0-9_]+$
 	Slug *string `json:"slug"`
 
+	// Standard Version
+	// Max Length: 50
+	// Min Length: 1
+	StandardVersion string `json:"standard_version,omitempty"`
+
 	// Parent/child status
 	//
-	// Parent devices house child devices in device bays. Leave blank if this device type is neither a parent nor a child.
-	// Enum: [parent child]
-	SubdeviceRole string `json:"subdevice_role,omitempty"`
+	// Parent devices house child devices in device bays. Select "None" if this device type is neither a parent nor a child.
+	// Enum: [<nil> true false]
+	SubdeviceRole bool `json:"subdevice_role,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Height (U)
 	// Maximum: 32767
 	// Minimum: 0
 	UHeight *int64 `json:"u_height,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 }
 
 // Validate validates this writable device type
@@ -126,10 +116,6 @@ func (m *WritableDeviceType) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCreated(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateFrontImage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -149,11 +135,11 @@ func (m *WritableDeviceType) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRearImage(formats); err != nil {
+	if err := m.validateSlug(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateSlug(formats); err != nil {
+	if err := m.validateStandardVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -166,10 +152,6 @@ func (m *WritableDeviceType) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUHeight(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -186,19 +168,6 @@ func (m *WritableDeviceType) validateCreated(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("created", "body", "date", m.Created.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableDeviceType) validateFrontImage(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.FrontImage) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("front_image", "body", "uri", m.FrontImage.String(), formats); err != nil {
 		return err
 	}
 
@@ -257,19 +226,6 @@ func (m *WritableDeviceType) validatePartNumber(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *WritableDeviceType) validateRearImage(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RearImage) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("rear_image", "body", "uri", m.RearImage.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *WritableDeviceType) validateSlug(formats strfmt.Registry) error {
 
 	if err := validate.Required("slug", "body", m.Slug); err != nil {
@@ -291,11 +247,28 @@ func (m *WritableDeviceType) validateSlug(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *WritableDeviceType) validateStandardVersion(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.StandardVersion) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("standard_version", "body", string(m.StandardVersion), 1); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("standard_version", "body", string(m.StandardVersion), 50); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 var writableDeviceTypeTypeSubdeviceRolePropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["parent","child"]`), &res); err != nil {
+	var res []bool
+	if err := json.Unmarshal([]byte(`[null,true,false]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -303,17 +276,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritableDeviceTypeSubdeviceRoleParent captures enum value "parent"
-	WritableDeviceTypeSubdeviceRoleParent string = "parent"
-
-	// WritableDeviceTypeSubdeviceRoleChild captures enum value "child"
-	WritableDeviceTypeSubdeviceRoleChild string = "child"
-)
-
 // prop value enum
-func (m *WritableDeviceType) validateSubdeviceRoleEnum(path, location string, value string) error {
+func (m *WritableDeviceType) validateSubdeviceRoleEnum(path, location string, value bool) error {
 	if err := validate.EnumCase(path, location, value, writableDeviceTypeTypeSubdeviceRolePropEnum, true); err != nil {
 		return err
 	}
@@ -341,17 +305,9 @@ func (m *WritableDeviceType) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
 	}
@@ -370,19 +326,6 @@ func (m *WritableDeviceType) validateUHeight(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaximumInt("u_height", "body", int64(*m.UHeight), 32767, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableDeviceType) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
 	}
 

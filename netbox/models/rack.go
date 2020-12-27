@@ -21,7 +21,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -57,17 +56,11 @@ type Rack struct {
 	// Units are numbered top-to-bottom
 	DescUnits bool `json:"desc_units,omitempty"`
 
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
-
 	// Display name
 	// Read Only: true
 	DisplayName string `json:"display_name,omitempty"`
 
 	// Facility ID
-	//
-	// Locally-assigned identifier
 	// Max Length: 50
 	FacilityID *string `json:"facility_id,omitempty"`
 
@@ -90,8 +83,6 @@ type Rack struct {
 	Name *string `json:"name"`
 
 	// Outer depth
-	//
-	// Outer dimension of rack (depth)
 	// Maximum: 32767
 	// Minimum: 0
 	OuterDepth *int64 `json:"outer_depth,omitempty"`
@@ -100,15 +91,9 @@ type Rack struct {
 	OuterUnit *RackOuterUnit `json:"outer_unit,omitempty"`
 
 	// Outer width
-	//
-	// Outer dimension of rack (width)
 	// Maximum: 32767
 	// Minimum: 0
 	OuterWidth *int64 `json:"outer_width,omitempty"`
-
-	// Powerfeed count
-	// Read Only: true
-	PowerfeedCount int64 `json:"powerfeed_count,omitempty"`
 
 	// role
 	Role *NestedRackRole `json:"role,omitempty"`
@@ -125,7 +110,7 @@ type Rack struct {
 	Status *RackStatus `json:"status,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// tenant
 	Tenant *NestedTenant `json:"tenant,omitempty"`
@@ -134,16 +119,9 @@ type Rack struct {
 	Type *RackType `json:"type,omitempty"`
 
 	// Height (U)
-	//
-	// Height in rack units
 	// Maximum: 100
 	// Minimum: 1
 	UHeight int64 `json:"u_height,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 
 	// width
 	Width *RackWidth `json:"width,omitempty"`
@@ -218,10 +196,6 @@ func (m *Rack) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUHeight(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -448,17 +422,9 @@ func (m *Rack) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
 	}
@@ -519,19 +485,6 @@ func (m *Rack) validateUHeight(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Rack) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *Rack) validateWidth(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Width) { // not required
@@ -575,13 +528,11 @@ type RackOuterUnit struct {
 
 	// label
 	// Required: true
-	// Enum: [Millimeters Inches]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [mm in]
-	Value *string `json:"value"`
+	Value *int64 `json:"value"`
 }
 
 // Validate validates this rack outer unit
@@ -602,86 +553,18 @@ func (m *RackOuterUnit) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var rackOuterUnitTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["Millimeters","Inches"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackOuterUnitTypeLabelPropEnum = append(rackOuterUnitTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// RackOuterUnitLabelMillimeters captures enum value "Millimeters"
-	RackOuterUnitLabelMillimeters string = "Millimeters"
-
-	// RackOuterUnitLabelInches captures enum value "Inches"
-	RackOuterUnitLabelInches string = "Inches"
-)
-
-// prop value enum
-func (m *RackOuterUnit) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackOuterUnitTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *RackOuterUnit) validateLabel(formats strfmt.Registry) error {
 
 	if err := validate.Required("outer_unit"+"."+"label", "body", m.Label); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateLabelEnum("outer_unit"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var rackOuterUnitTypeValuePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["mm","in"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackOuterUnitTypeValuePropEnum = append(rackOuterUnitTypeValuePropEnum, v)
-	}
-}
-
-const (
-
-	// RackOuterUnitValueMm captures enum value "mm"
-	RackOuterUnitValueMm string = "mm"
-
-	// RackOuterUnitValueIn captures enum value "in"
-	RackOuterUnitValueIn string = "in"
-)
-
-// prop value enum
-func (m *RackOuterUnit) validateValueEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackOuterUnitTypeValuePropEnum, true); err != nil {
-		return err
-	}
 	return nil
 }
 
 func (m *RackOuterUnit) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("outer_unit"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("outer_unit"+"."+"value", "body", *m.Value); err != nil {
 		return err
 	}
 
@@ -713,13 +596,11 @@ type RackStatus struct {
 
 	// label
 	// Required: true
-	// Enum: [Reserved Available Planned Active Deprecated]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [reserved available planned active deprecated]
-	Value *string `json:"value"`
+	Value *int64 `json:"value"`
 }
 
 // Validate validates this rack status
@@ -740,104 +621,18 @@ func (m *RackStatus) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var rackStatusTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["Reserved","Available","Planned","Active","Deprecated"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackStatusTypeLabelPropEnum = append(rackStatusTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// RackStatusLabelReserved captures enum value "Reserved"
-	RackStatusLabelReserved string = "Reserved"
-
-	// RackStatusLabelAvailable captures enum value "Available"
-	RackStatusLabelAvailable string = "Available"
-
-	// RackStatusLabelPlanned captures enum value "Planned"
-	RackStatusLabelPlanned string = "Planned"
-
-	// RackStatusLabelActive captures enum value "Active"
-	RackStatusLabelActive string = "Active"
-
-	// RackStatusLabelDeprecated captures enum value "Deprecated"
-	RackStatusLabelDeprecated string = "Deprecated"
-)
-
-// prop value enum
-func (m *RackStatus) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackStatusTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *RackStatus) validateLabel(formats strfmt.Registry) error {
 
 	if err := validate.Required("status"+"."+"label", "body", m.Label); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateLabelEnum("status"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var rackStatusTypeValuePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["reserved","available","planned","active","deprecated"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackStatusTypeValuePropEnum = append(rackStatusTypeValuePropEnum, v)
-	}
-}
-
-const (
-
-	// RackStatusValueReserved captures enum value "reserved"
-	RackStatusValueReserved string = "reserved"
-
-	// RackStatusValueAvailable captures enum value "available"
-	RackStatusValueAvailable string = "available"
-
-	// RackStatusValuePlanned captures enum value "planned"
-	RackStatusValuePlanned string = "planned"
-
-	// RackStatusValueActive captures enum value "active"
-	RackStatusValueActive string = "active"
-
-	// RackStatusValueDeprecated captures enum value "deprecated"
-	RackStatusValueDeprecated string = "deprecated"
-)
-
-// prop value enum
-func (m *RackStatus) validateValueEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackStatusTypeValuePropEnum, true); err != nil {
-		return err
-	}
 	return nil
 }
 
 func (m *RackStatus) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("status"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("status"+"."+"value", "body", *m.Value); err != nil {
 		return err
 	}
 
@@ -869,13 +664,11 @@ type RackType struct {
 
 	// label
 	// Required: true
-	// Enum: [2-post frame 4-post frame 4-post cabinet Wall-mounted frame Wall-mounted cabinet]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [2-post-frame 4-post-frame 4-post-cabinet wall-frame wall-cabinet]
-	Value *string `json:"value"`
+	Value *int64 `json:"value"`
 }
 
 // Validate validates this rack type
@@ -896,104 +689,18 @@ func (m *RackType) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var rackTypeTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["2-post frame","4-post frame","4-post cabinet","Wall-mounted frame","Wall-mounted cabinet"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackTypeTypeLabelPropEnum = append(rackTypeTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// RackTypeLabelNr2PostFrame captures enum value "2-post frame"
-	RackTypeLabelNr2PostFrame string = "2-post frame"
-
-	// RackTypeLabelNr4PostFrame captures enum value "4-post frame"
-	RackTypeLabelNr4PostFrame string = "4-post frame"
-
-	// RackTypeLabelNr4PostCabinet captures enum value "4-post cabinet"
-	RackTypeLabelNr4PostCabinet string = "4-post cabinet"
-
-	// RackTypeLabelWallMountedFrame captures enum value "Wall-mounted frame"
-	RackTypeLabelWallMountedFrame string = "Wall-mounted frame"
-
-	// RackTypeLabelWallMountedCabinet captures enum value "Wall-mounted cabinet"
-	RackTypeLabelWallMountedCabinet string = "Wall-mounted cabinet"
-)
-
-// prop value enum
-func (m *RackType) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackTypeTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *RackType) validateLabel(formats strfmt.Registry) error {
 
 	if err := validate.Required("type"+"."+"label", "body", m.Label); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateLabelEnum("type"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var rackTypeTypeValuePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-cabinet"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackTypeTypeValuePropEnum = append(rackTypeTypeValuePropEnum, v)
-	}
-}
-
-const (
-
-	// RackTypeValueNr2PostFrame captures enum value "2-post-frame"
-	RackTypeValueNr2PostFrame string = "2-post-frame"
-
-	// RackTypeValueNr4PostFrame captures enum value "4-post-frame"
-	RackTypeValueNr4PostFrame string = "4-post-frame"
-
-	// RackTypeValueNr4PostCabinet captures enum value "4-post-cabinet"
-	RackTypeValueNr4PostCabinet string = "4-post-cabinet"
-
-	// RackTypeValueWallFrame captures enum value "wall-frame"
-	RackTypeValueWallFrame string = "wall-frame"
-
-	// RackTypeValueWallCabinet captures enum value "wall-cabinet"
-	RackTypeValueWallCabinet string = "wall-cabinet"
-)
-
-// prop value enum
-func (m *RackType) validateValueEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackTypeTypeValuePropEnum, true); err != nil {
-		return err
-	}
 	return nil
 }
 
 func (m *RackType) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("type"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("type"+"."+"value", "body", *m.Value); err != nil {
 		return err
 	}
 
@@ -1025,12 +732,10 @@ type RackWidth struct {
 
 	// label
 	// Required: true
-	// Enum: [10 inches 19 inches 21 inches 23 inches]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [10 19 21 23]
 	Value *int64 `json:"value"`
 }
 
@@ -1052,83 +757,18 @@ func (m *RackWidth) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var rackWidthTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["10 inches","19 inches","21 inches","23 inches"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackWidthTypeLabelPropEnum = append(rackWidthTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// RackWidthLabelNr10Inches captures enum value "10 inches"
-	RackWidthLabelNr10Inches string = "10 inches"
-
-	// RackWidthLabelNr19Inches captures enum value "19 inches"
-	RackWidthLabelNr19Inches string = "19 inches"
-
-	// RackWidthLabelNr21Inches captures enum value "21 inches"
-	RackWidthLabelNr21Inches string = "21 inches"
-
-	// RackWidthLabelNr23Inches captures enum value "23 inches"
-	RackWidthLabelNr23Inches string = "23 inches"
-)
-
-// prop value enum
-func (m *RackWidth) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackWidthTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *RackWidth) validateLabel(formats strfmt.Registry) error {
 
 	if err := validate.Required("width"+"."+"label", "body", m.Label); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateLabelEnum("width"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var rackWidthTypeValuePropEnum []interface{}
-
-func init() {
-	var res []int64
-	if err := json.Unmarshal([]byte(`[10,19,21,23]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackWidthTypeValuePropEnum = append(rackWidthTypeValuePropEnum, v)
-	}
-}
-
-// prop value enum
-func (m *RackWidth) validateValueEnum(path, location string, value int64) error {
-	if err := validate.EnumCase(path, location, value, rackWidthTypeValuePropEnum, true); err != nil {
-		return err
-	}
 	return nil
 }
 
 func (m *RackWidth) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("width"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("width"+"."+"value", "body", *m.Value); err != nil {
 		return err
 	}
 

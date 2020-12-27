@@ -44,7 +44,7 @@ type WritableVLAN struct {
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
 	// Display name
@@ -69,10 +69,6 @@ type WritableVLAN struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
-	// Prefix count
-	// Read Only: true
-	PrefixCount int64 `json:"prefix_count,omitempty"`
-
 	// Role
 	Role *int64 `json:"role,omitempty"`
 
@@ -80,19 +76,14 @@ type WritableVLAN struct {
 	Site *int64 `json:"site,omitempty"`
 
 	// Status
-	// Enum: [active reserved deprecated]
-	Status string `json:"status,omitempty"`
+	// Enum: [1 2 3]
+	Status int64 `json:"status,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Tenant
 	Tenant *int64 `json:"tenant,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 
 	// ID
 	// Required: true
@@ -129,10 +120,6 @@ func (m *WritableVLAN) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateURL(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateVid(formats); err != nil {
 		res = append(res, err)
 	}
@@ -162,7 +149,7 @@ func (m *WritableVLAN) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -202,8 +189,8 @@ func (m *WritableVLAN) validateName(formats strfmt.Registry) error {
 var writableVLANTypeStatusPropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["active","reserved","deprecated"]`), &res); err != nil {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[1,2,3]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -211,20 +198,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritableVLANStatusActive captures enum value "active"
-	WritableVLANStatusActive string = "active"
-
-	// WritableVLANStatusReserved captures enum value "reserved"
-	WritableVLANStatusReserved string = "reserved"
-
-	// WritableVLANStatusDeprecated captures enum value "deprecated"
-	WritableVLANStatusDeprecated string = "deprecated"
-)
-
 // prop value enum
-func (m *WritableVLAN) validateStatusEnum(path, location string, value string) error {
+func (m *WritableVLAN) validateStatusEnum(path, location string, value int64) error {
 	if err := validate.EnumCase(path, location, value, writableVLANTypeStatusPropEnum, true); err != nil {
 		return err
 	}
@@ -252,32 +227,11 @@ func (m *WritableVLAN) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
+
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *WritableVLAN) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

@@ -32,10 +32,6 @@ import (
 // swagger:model NestedTenantGroup
 type NestedTenantGroup struct {
 
-	// depth
-	// Read Only: true
-	Depth int64 `json:"_depth,omitempty"`
-
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -52,10 +48,6 @@ type NestedTenantGroup struct {
 	// Min Length: 1
 	// Pattern: ^[-a-zA-Z0-9_]+$
 	Slug *string `json:"slug"`
-
-	// Tenant count
-	// Read Only: true
-	TenantCount int64 `json:"tenant_count,omitempty"`
 
 	// Url
 	// Read Only: true

@@ -42,6 +42,10 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	VirtualizationChoicesList(params *VirtualizationChoicesListParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationChoicesListOK, error)
+
+	VirtualizationChoicesRead(params *VirtualizationChoicesReadParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationChoicesReadOK, error)
+
 	VirtualizationClusterGroupsCreate(params *VirtualizationClusterGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationClusterGroupsCreateCreated, error)
 
 	VirtualizationClusterGroupsDelete(params *VirtualizationClusterGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationClusterGroupsDeleteNoContent, error)
@@ -82,8 +86,6 @@ type ClientService interface {
 
 	VirtualizationInterfacesDelete(params *VirtualizationInterfacesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationInterfacesDeleteNoContent, error)
 
-	VirtualizationInterfacesGraphs(params *VirtualizationInterfacesGraphsParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationInterfacesGraphsOK, error)
-
 	VirtualizationInterfacesList(params *VirtualizationInterfacesListParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationInterfacesListOK, error)
 
 	VirtualizationInterfacesPartialUpdate(params *VirtualizationInterfacesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationInterfacesPartialUpdateOK, error)
@@ -105,6 +107,76 @@ type ClientService interface {
 	VirtualizationVirtualMachinesUpdate(params *VirtualizationVirtualMachinesUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationVirtualMachinesUpdateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  VirtualizationChoicesList virtualization choices list API
+*/
+func (a *Client) VirtualizationChoicesList(params *VirtualizationChoicesListParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationChoicesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationChoicesListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "virtualization__choices_list",
+		Method:             "GET",
+		PathPattern:        "/virtualization/_choices/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationChoicesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationChoicesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization__choices_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  VirtualizationChoicesRead virtualization choices read API
+*/
+func (a *Client) VirtualizationChoicesRead(params *VirtualizationChoicesReadParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationChoicesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationChoicesReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "virtualization__choices_read",
+		Method:             "GET",
+		PathPattern:        "/virtualization/_choices/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationChoicesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationChoicesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization__choices_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -137,8 +209,9 @@ func (a *Client) VirtualizationClusterGroupsCreate(params *VirtualizationCluster
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClusterGroupsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_cluster-groups_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -241,8 +314,9 @@ func (a *Client) VirtualizationClusterGroupsPartialUpdate(params *Virtualization
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClusterGroupsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_cluster-groups_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -310,8 +384,9 @@ func (a *Client) VirtualizationClusterGroupsUpdate(params *VirtualizationCluster
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClusterGroupsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_cluster-groups_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -344,8 +419,9 @@ func (a *Client) VirtualizationClusterTypesCreate(params *VirtualizationClusterT
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClusterTypesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_cluster-types_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -448,8 +524,9 @@ func (a *Client) VirtualizationClusterTypesPartialUpdate(params *VirtualizationC
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClusterTypesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_cluster-types_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -517,8 +594,9 @@ func (a *Client) VirtualizationClusterTypesUpdate(params *VirtualizationClusterT
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClusterTypesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_cluster-types_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -551,8 +629,9 @@ func (a *Client) VirtualizationClustersCreate(params *VirtualizationClustersCrea
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClustersCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_clusters_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -655,8 +734,9 @@ func (a *Client) VirtualizationClustersPartialUpdate(params *VirtualizationClust
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClustersPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_clusters_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -724,8 +804,9 @@ func (a *Client) VirtualizationClustersUpdate(params *VirtualizationClustersUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationClustersUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_clusters_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -758,8 +839,9 @@ func (a *Client) VirtualizationInterfacesCreate(params *VirtualizationInterfaces
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationInterfacesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_interfaces_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -794,41 +876,6 @@ func (a *Client) VirtualizationInterfacesDelete(params *VirtualizationInterfaces
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for virtualization_interfaces_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  VirtualizationInterfacesGraphs A convenience method for rendering graphs for a particular VM interface.
-*/
-func (a *Client) VirtualizationInterfacesGraphs(params *VirtualizationInterfacesGraphsParams, authInfo runtime.ClientAuthInfoWriter) (*VirtualizationInterfacesGraphsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewVirtualizationInterfacesGraphsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "virtualization_interfaces_graphs",
-		Method:             "GET",
-		PathPattern:        "/virtualization/interfaces/{id}/graphs/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &VirtualizationInterfacesGraphsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*VirtualizationInterfacesGraphsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for virtualization_interfaces_graphs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -897,8 +944,9 @@ func (a *Client) VirtualizationInterfacesPartialUpdate(params *VirtualizationInt
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationInterfacesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_interfaces_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -966,8 +1014,9 @@ func (a *Client) VirtualizationInterfacesUpdate(params *VirtualizationInterfaces
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationInterfacesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_interfaces_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1000,8 +1049,9 @@ func (a *Client) VirtualizationVirtualMachinesCreate(params *VirtualizationVirtu
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationVirtualMachinesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_virtual-machines_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1104,8 +1154,9 @@ func (a *Client) VirtualizationVirtualMachinesPartialUpdate(params *Virtualizati
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationVirtualMachinesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_virtual-machines_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1173,8 +1224,9 @@ func (a *Client) VirtualizationVirtualMachinesUpdate(params *VirtualizationVirtu
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*VirtualizationVirtualMachinesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for virtualization_virtual-machines_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

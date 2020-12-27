@@ -32,10 +32,6 @@ import (
 // swagger:model NestedVRF
 type NestedVRF struct {
 
-	// Display name
-	// Read Only: true
-	DisplayName string `json:"display_name,omitempty"`
-
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -46,13 +42,7 @@ type NestedVRF struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
-	// Prefix count
-	// Read Only: true
-	PrefixCount int64 `json:"prefix_count,omitempty"`
-
 	// Route distinguisher
-	//
-	// Unique route distinguisher (as defined in RFC 4364)
 	// Max Length: 21
 	Rd *string `json:"rd,omitempty"`
 

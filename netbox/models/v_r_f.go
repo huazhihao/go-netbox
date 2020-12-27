@@ -43,7 +43,7 @@ type VRF struct {
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
 	// Display name
@@ -59,10 +59,6 @@ type VRF struct {
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
 
-	// Ipaddress count
-	// Read Only: true
-	IpaddressCount int64 `json:"ipaddress_count,omitempty"`
-
 	// Last updated
 	// Read Only: true
 	// Format: date-time
@@ -74,26 +70,15 @@ type VRF struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
-	// Prefix count
-	// Read Only: true
-	PrefixCount int64 `json:"prefix_count,omitempty"`
-
 	// Route distinguisher
-	//
-	// Unique route distinguisher (as defined in RFC 4364)
 	// Max Length: 21
 	Rd *string `json:"rd,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// tenant
 	Tenant *NestedTenant `json:"tenant,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 }
 
 // Validate validates this v r f
@@ -128,10 +113,6 @@ func (m *VRF) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateURL(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -157,7 +138,7 @@ func (m *VRF) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -214,17 +195,9 @@ func (m *VRF) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
 	}
@@ -245,19 +218,6 @@ func (m *VRF) validateTenant(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *VRF) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

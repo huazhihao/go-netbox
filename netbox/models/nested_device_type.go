@@ -32,10 +32,6 @@ import (
 // swagger:model NestedDeviceType
 type NestedDeviceType struct {
 
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
-
 	// Display name
 	// Read Only: true
 	DisplayName string `json:"display_name,omitempty"`
@@ -60,6 +56,11 @@ type NestedDeviceType struct {
 	// Pattern: ^[-a-zA-Z0-9_]+$
 	Slug *string `json:"slug"`
 
+	// Standard Version
+	// Max Length: 50
+	// Min Length: 1
+	StandardVersion string `json:"standard_version,omitempty"`
+
 	// Url
 	// Read Only: true
 	// Format: uri
@@ -79,6 +80,10 @@ func (m *NestedDeviceType) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSlug(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStandardVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -142,6 +147,23 @@ func (m *NestedDeviceType) validateSlug(formats strfmt.Registry) error {
 	}
 
 	if err := validate.Pattern("slug", "body", string(*m.Slug), `^[-a-zA-Z0-9_]+$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *NestedDeviceType) validateStandardVersion(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.StandardVersion) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("standard_version", "body", string(m.StandardVersion), 1); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("standard_version", "body", string(m.StandardVersion), 50); err != nil {
 		return err
 	}
 

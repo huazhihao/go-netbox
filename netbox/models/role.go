@@ -32,10 +32,6 @@ import (
 // swagger:model Role
 type Role struct {
 
-	// Description
-	// Max Length: 200
-	Description string `json:"description,omitempty"`
-
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -46,25 +42,12 @@ type Role struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
-	// Prefix count
-	// Read Only: true
-	PrefixCount int64 `json:"prefix_count,omitempty"`
-
 	// Slug
 	// Required: true
 	// Max Length: 50
 	// Min Length: 1
 	// Pattern: ^[-a-zA-Z0-9_]+$
 	Slug *string `json:"slug"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
-
-	// Vlan count
-	// Read Only: true
-	VlanCount int64 `json:"vlan_count,omitempty"`
 
 	// Weight
 	// Maximum: 32767
@@ -76,19 +59,11 @@ type Role struct {
 func (m *Role) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDescription(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateSlug(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -99,19 +74,6 @@ func (m *Role) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *Role) validateDescription(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Description) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -147,19 +109,6 @@ func (m *Role) validateSlug(formats strfmt.Registry) error {
 	}
 
 	if err := validate.Pattern("slug", "body", string(*m.Slug), `^[-a-zA-Z0-9_]+$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Role) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
 	}
 

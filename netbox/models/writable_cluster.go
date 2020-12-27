@@ -45,10 +45,6 @@ type WritableCluster struct {
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
-
 	// Group
 	Group *int64 `json:"group,omitempty"`
 
@@ -71,23 +67,11 @@ type WritableCluster struct {
 	Site *int64 `json:"site,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
-
-	// Tenant
-	Tenant *int64 `json:"tenant,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Type
 	// Required: true
 	Type *int64 `json:"type"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
-
-	// Virtualmachine count
-	// Read Only: true
-	VirtualmachineCount int64 `json:"virtualmachine_count,omitempty"`
 }
 
 // Validate validates this writable cluster
@@ -111,10 +95,6 @@ func (m *WritableCluster) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -174,17 +154,9 @@ func (m *WritableCluster) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
 	}
@@ -195,19 +167,6 @@ func (m *WritableCluster) validateTags(formats strfmt.Registry) error {
 func (m *WritableCluster) validateType(formats strfmt.Registry) error {
 
 	if err := validate.Required("type", "body", m.Type); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableCluster) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
 	}
 

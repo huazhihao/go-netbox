@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // VirtualizationVirtualMachinesCreateReader is a Reader for the VirtualizationVirtualMachinesCreate structure.
@@ -44,15 +44,9 @@ func (o *VirtualizationVirtualMachinesCreateReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return result, nil
+
 	default:
-		result := NewVirtualizationVirtualMachinesCreateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -66,63 +60,23 @@ func NewVirtualizationVirtualMachinesCreateCreated() *VirtualizationVirtualMachi
 VirtualizationVirtualMachinesCreateCreated virtualization virtual machines create created
 */
 type VirtualizationVirtualMachinesCreateCreated struct {
-	Payload *models.VirtualMachineWithConfigContext
+	Payload *models.VirtualMachine
 }
 
 func (o *VirtualizationVirtualMachinesCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /virtualization/virtual-machines/][%d] virtualizationVirtualMachinesCreateCreated  %+v", 201, o.Payload)
 }
 
-func (o *VirtualizationVirtualMachinesCreateCreated) GetPayload() *models.VirtualMachineWithConfigContext {
+func (o *VirtualizationVirtualMachinesCreateCreated) GetPayload() *models.VirtualMachine {
 	return o.Payload
 }
 
 func (o *VirtualizationVirtualMachinesCreateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.VirtualMachineWithConfigContext)
+	o.Payload = new(models.VirtualMachine)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewVirtualizationVirtualMachinesCreateDefault creates a VirtualizationVirtualMachinesCreateDefault with default headers values
-func NewVirtualizationVirtualMachinesCreateDefault(code int) *VirtualizationVirtualMachinesCreateDefault {
-	return &VirtualizationVirtualMachinesCreateDefault{
-		_statusCode: code,
-	}
-}
-
-/*VirtualizationVirtualMachinesCreateDefault handles this case with default header values.
-
-VirtualizationVirtualMachinesCreateDefault virtualization virtual machines create default
-*/
-type VirtualizationVirtualMachinesCreateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the virtualization virtual machines create default response
-func (o *VirtualizationVirtualMachinesCreateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *VirtualizationVirtualMachinesCreateDefault) Error() string {
-	return fmt.Sprintf("[POST /virtualization/virtual-machines/][%d] virtualization_virtual-machines_create default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *VirtualizationVirtualMachinesCreateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *VirtualizationVirtualMachinesCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

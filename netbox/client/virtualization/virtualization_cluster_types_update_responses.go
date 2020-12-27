@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // VirtualizationClusterTypesUpdateReader is a Reader for the VirtualizationClusterTypesUpdate structure.
@@ -44,15 +44,9 @@ func (o *VirtualizationClusterTypesUpdateReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return result, nil
+
 	default:
-		result := NewVirtualizationClusterTypesUpdateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -83,46 +77,6 @@ func (o *VirtualizationClusterTypesUpdateOK) readResponse(response runtime.Clien
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewVirtualizationClusterTypesUpdateDefault creates a VirtualizationClusterTypesUpdateDefault with default headers values
-func NewVirtualizationClusterTypesUpdateDefault(code int) *VirtualizationClusterTypesUpdateDefault {
-	return &VirtualizationClusterTypesUpdateDefault{
-		_statusCode: code,
-	}
-}
-
-/*VirtualizationClusterTypesUpdateDefault handles this case with default header values.
-
-VirtualizationClusterTypesUpdateDefault virtualization cluster types update default
-*/
-type VirtualizationClusterTypesUpdateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the virtualization cluster types update default response
-func (o *VirtualizationClusterTypesUpdateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *VirtualizationClusterTypesUpdateDefault) Error() string {
-	return fmt.Sprintf("[PUT /virtualization/cluster-types/{id}/][%d] virtualization_cluster-types_update default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *VirtualizationClusterTypesUpdateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *VirtualizationClusterTypesUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

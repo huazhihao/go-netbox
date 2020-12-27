@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // DcimRegionsUpdateReader is a Reader for the DcimRegionsUpdate structure.
@@ -44,15 +44,9 @@ func (o *DcimRegionsUpdateReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
+
 	default:
-		result := NewDcimRegionsUpdateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -83,46 +77,6 @@ func (o *DcimRegionsUpdateOK) readResponse(response runtime.ClientResponse, cons
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDcimRegionsUpdateDefault creates a DcimRegionsUpdateDefault with default headers values
-func NewDcimRegionsUpdateDefault(code int) *DcimRegionsUpdateDefault {
-	return &DcimRegionsUpdateDefault{
-		_statusCode: code,
-	}
-}
-
-/*DcimRegionsUpdateDefault handles this case with default header values.
-
-DcimRegionsUpdateDefault dcim regions update default
-*/
-type DcimRegionsUpdateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the dcim regions update default response
-func (o *DcimRegionsUpdateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *DcimRegionsUpdateDefault) Error() string {
-	return fmt.Sprintf("[PUT /dcim/regions/{id}/][%d] dcim_regions_update default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *DcimRegionsUpdateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *DcimRegionsUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

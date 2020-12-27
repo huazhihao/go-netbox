@@ -27,7 +27,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // DcimManufacturersCreateReader is a Reader for the DcimManufacturersCreate structure.
@@ -44,15 +44,9 @@ func (o *DcimManufacturersCreateReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return result, nil
+
 	default:
-		result := NewDcimManufacturersCreateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -83,46 +77,6 @@ func (o *DcimManufacturersCreateCreated) readResponse(response runtime.ClientRes
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDcimManufacturersCreateDefault creates a DcimManufacturersCreateDefault with default headers values
-func NewDcimManufacturersCreateDefault(code int) *DcimManufacturersCreateDefault {
-	return &DcimManufacturersCreateDefault{
-		_statusCode: code,
-	}
-}
-
-/*DcimManufacturersCreateDefault handles this case with default header values.
-
-DcimManufacturersCreateDefault dcim manufacturers create default
-*/
-type DcimManufacturersCreateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the dcim manufacturers create default response
-func (o *DcimManufacturersCreateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *DcimManufacturersCreateDefault) Error() string {
-	return fmt.Sprintf("[POST /dcim/manufacturers/][%d] dcim_manufacturers_create default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *DcimManufacturersCreateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *DcimManufacturersCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

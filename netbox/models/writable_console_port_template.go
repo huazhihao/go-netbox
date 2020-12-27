@@ -21,8 +21,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -34,10 +32,6 @@ import (
 // swagger:model WritableConsolePortTemplate
 type WritableConsolePortTemplate struct {
 
-	// Description
-	// Max Length: 200
-	Description string `json:"description,omitempty"`
-
 	// Device type
 	// Required: true
 	DeviceType *int64 `json:"device_type"`
@@ -46,53 +40,22 @@ type WritableConsolePortTemplate struct {
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
 
-	// Label
-	//
-	// Physical label
-	// Max Length: 64
-	Label string `json:"label,omitempty"`
-
 	// Name
 	// Required: true
-	// Max Length: 64
+	// Max Length: 50
 	// Min Length: 1
 	Name *string `json:"name"`
-
-	// Type
-	// Enum: [de-9 db-25 rj-11 rj-12 rj-45 usb-a usb-b usb-c usb-mini-a usb-mini-b usb-micro-a usb-micro-b other]
-	Type string `json:"type,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 }
 
 // Validate validates this writable console port template
 func (m *WritableConsolePortTemplate) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDescription(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateDeviceType(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateLabel(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -102,35 +65,9 @@ func (m *WritableConsolePortTemplate) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *WritableConsolePortTemplate) validateDescription(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Description) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *WritableConsolePortTemplate) validateDeviceType(formats strfmt.Registry) error {
 
 	if err := validate.Required("device_type", "body", m.DeviceType); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableConsolePortTemplate) validateLabel(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Label) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("label", "body", string(m.Label), 64); err != nil {
 		return err
 	}
 
@@ -147,96 +84,7 @@ func (m *WritableConsolePortTemplate) validateName(formats strfmt.Registry) erro
 		return err
 	}
 
-	if err := validate.MaxLength("name", "body", string(*m.Name), 64); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var writableConsolePortTemplateTypeTypePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["de-9","db-25","rj-11","rj-12","rj-45","usb-a","usb-b","usb-c","usb-mini-a","usb-mini-b","usb-micro-a","usb-micro-b","other"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		writableConsolePortTemplateTypeTypePropEnum = append(writableConsolePortTemplateTypeTypePropEnum, v)
-	}
-}
-
-const (
-
-	// WritableConsolePortTemplateTypeDe9 captures enum value "de-9"
-	WritableConsolePortTemplateTypeDe9 string = "de-9"
-
-	// WritableConsolePortTemplateTypeDb25 captures enum value "db-25"
-	WritableConsolePortTemplateTypeDb25 string = "db-25"
-
-	// WritableConsolePortTemplateTypeRj11 captures enum value "rj-11"
-	WritableConsolePortTemplateTypeRj11 string = "rj-11"
-
-	// WritableConsolePortTemplateTypeRj12 captures enum value "rj-12"
-	WritableConsolePortTemplateTypeRj12 string = "rj-12"
-
-	// WritableConsolePortTemplateTypeRj45 captures enum value "rj-45"
-	WritableConsolePortTemplateTypeRj45 string = "rj-45"
-
-	// WritableConsolePortTemplateTypeUsba captures enum value "usb-a"
-	WritableConsolePortTemplateTypeUsba string = "usb-a"
-
-	// WritableConsolePortTemplateTypeUsbb captures enum value "usb-b"
-	WritableConsolePortTemplateTypeUsbb string = "usb-b"
-
-	// WritableConsolePortTemplateTypeUsbc captures enum value "usb-c"
-	WritableConsolePortTemplateTypeUsbc string = "usb-c"
-
-	// WritableConsolePortTemplateTypeUsbMinia captures enum value "usb-mini-a"
-	WritableConsolePortTemplateTypeUsbMinia string = "usb-mini-a"
-
-	// WritableConsolePortTemplateTypeUsbMinib captures enum value "usb-mini-b"
-	WritableConsolePortTemplateTypeUsbMinib string = "usb-mini-b"
-
-	// WritableConsolePortTemplateTypeUsbMicroa captures enum value "usb-micro-a"
-	WritableConsolePortTemplateTypeUsbMicroa string = "usb-micro-a"
-
-	// WritableConsolePortTemplateTypeUsbMicrob captures enum value "usb-micro-b"
-	WritableConsolePortTemplateTypeUsbMicrob string = "usb-micro-b"
-
-	// WritableConsolePortTemplateTypeOther captures enum value "other"
-	WritableConsolePortTemplateTypeOther string = "other"
-)
-
-// prop value enum
-func (m *WritableConsolePortTemplate) validateTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, writableConsolePortTemplateTypeTypePropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *WritableConsolePortTemplate) validateType(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Type) { // not required
-		return nil
-	}
-
-	// value enum
-	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableConsolePortTemplate) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
+	if err := validate.MaxLength("name", "body", string(*m.Name), 50); err != nil {
 		return err
 	}
 

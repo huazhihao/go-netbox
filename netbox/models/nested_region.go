@@ -32,10 +32,6 @@ import (
 // swagger:model NestedRegion
 type NestedRegion struct {
 
-	// depth
-	// Read Only: true
-	Depth int64 `json:"_depth,omitempty"`
-
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -45,10 +41,6 @@ type NestedRegion struct {
 	// Max Length: 50
 	// Min Length: 1
 	Name *string `json:"name"`
-
-	// Site count
-	// Read Only: true
-	SiteCount int64 `json:"site_count,omitempty"`
 
 	// Slug
 	// Required: true

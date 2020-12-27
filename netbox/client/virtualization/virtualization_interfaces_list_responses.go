@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // VirtualizationInterfacesListReader is a Reader for the VirtualizationInterfacesList structure.
@@ -106,7 +106,7 @@ type VirtualizationInterfacesListOKBody struct {
 
 	// results
 	// Required: true
-	Results []*models.VMInterface `json:"results"`
+	Results []*models.VirtualMachineInterface `json:"results"`
 }
 
 // Validate validates this virtualization interfaces list o k body

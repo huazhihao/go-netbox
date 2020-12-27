@@ -30,7 +30,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/models"
+	"github.com/huazhihao/go-netbox/models"
 )
 
 // NewDcimDevicesCreateParams creates a new DcimDevicesCreateParams object
@@ -78,7 +78,7 @@ for the dcim devices create operation typically these are written to a http.Requ
 type DcimDevicesCreateParams struct {
 
 	/*Data*/
-	Data *models.WritableDeviceWithConfigContext
+	Data *models.WritableDevice
 
 	timeout    time.Duration
 	Context    context.Context
@@ -119,13 +119,13 @@ func (o *DcimDevicesCreateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the dcim devices create params
-func (o *DcimDevicesCreateParams) WithData(data *models.WritableDeviceWithConfigContext) *DcimDevicesCreateParams {
+func (o *DcimDevicesCreateParams) WithData(data *models.WritableDevice) *DcimDevicesCreateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the dcim devices create params
-func (o *DcimDevicesCreateParams) SetData(data *models.WritableDeviceWithConfigContext) {
+func (o *DcimDevicesCreateParams) SetData(data *models.WritableDevice) {
 	o.Data = data
 }
 

@@ -42,6 +42,10 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	DcimChoicesList(params *DcimChoicesListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimChoicesListOK, error)
+
+	DcimChoicesRead(params *DcimChoicesReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimChoicesReadOK, error)
+
 	DcimCablesCreate(params *DcimCablesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimCablesCreateCreated, error)
 
 	DcimCablesDelete(params *DcimCablesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimCablesDeleteNoContent, error)
@@ -134,6 +138,18 @@ type ClientService interface {
 
 	DcimDeviceBaysUpdate(params *DcimDeviceBaysUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceBaysUpdateOK, error)
 
+	DcimDeviceDepartmentsCreate(params *DcimDeviceDepartmentsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsCreateCreated, error)
+
+	DcimDeviceDepartmentsDelete(params *DcimDeviceDepartmentsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsDeleteNoContent, error)
+
+	DcimDeviceDepartmentsList(params *DcimDeviceDepartmentsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsListOK, error)
+
+	DcimDeviceDepartmentsPartialUpdate(params *DcimDeviceDepartmentsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsPartialUpdateOK, error)
+
+	DcimDeviceDepartmentsRead(params *DcimDeviceDepartmentsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsReadOK, error)
+
+	DcimDeviceDepartmentsUpdate(params *DcimDeviceDepartmentsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsUpdateOK, error)
+
 	DcimDeviceRolesCreate(params *DcimDeviceRolesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceRolesCreateCreated, error)
 
 	DcimDeviceRolesDelete(params *DcimDeviceRolesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceRolesDeleteNoContent, error)
@@ -161,8 +177,6 @@ type ClientService interface {
 	DcimDevicesCreate(params *DcimDevicesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDevicesCreateCreated, error)
 
 	DcimDevicesDelete(params *DcimDevicesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDevicesDeleteNoContent, error)
-
-	DcimDevicesGraphs(params *DcimDevicesGraphsParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDevicesGraphsOK, error)
 
 	DcimDevicesList(params *DcimDevicesListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDevicesListOK, error)
 
@@ -195,8 +209,6 @@ type ClientService interface {
 	DcimFrontPortsPartialUpdate(params *DcimFrontPortsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimFrontPortsPartialUpdateOK, error)
 
 	DcimFrontPortsRead(params *DcimFrontPortsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimFrontPortsReadOK, error)
-
-	DcimFrontPortsTrace(params *DcimFrontPortsTraceParams, authInfo runtime.ClientAuthInfoWriter) (*DcimFrontPortsTraceOK, error)
 
 	DcimFrontPortsUpdate(params *DcimFrontPortsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimFrontPortsUpdateOK, error)
 
@@ -242,6 +254,18 @@ type ClientService interface {
 
 	DcimInventoryItemsUpdate(params *DcimInventoryItemsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimInventoryItemsUpdateOK, error)
 
+	DcimJirachangesCreate(params *DcimJirachangesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesCreateCreated, error)
+
+	DcimJirachangesDelete(params *DcimJirachangesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesDeleteNoContent, error)
+
+	DcimJirachangesList(params *DcimJirachangesListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesListOK, error)
+
+	DcimJirachangesPartialUpdate(params *DcimJirachangesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesPartialUpdateOK, error)
+
+	DcimJirachangesRead(params *DcimJirachangesReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesReadOK, error)
+
+	DcimJirachangesUpdate(params *DcimJirachangesUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesUpdateOK, error)
+
 	DcimManufacturersCreate(params *DcimManufacturersCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimManufacturersCreateCreated, error)
 
 	DcimManufacturersDelete(params *DcimManufacturersDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimManufacturersDeleteNoContent, error)
@@ -253,6 +277,18 @@ type ClientService interface {
 	DcimManufacturersRead(params *DcimManufacturersReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimManufacturersReadOK, error)
 
 	DcimManufacturersUpdate(params *DcimManufacturersUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimManufacturersUpdateOK, error)
+
+	DcimMavendorsCreate(params *DcimMavendorsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsCreateCreated, error)
+
+	DcimMavendorsDelete(params *DcimMavendorsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsDeleteNoContent, error)
+
+	DcimMavendorsList(params *DcimMavendorsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsListOK, error)
+
+	DcimMavendorsPartialUpdate(params *DcimMavendorsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsPartialUpdateOK, error)
+
+	DcimMavendorsRead(params *DcimMavendorsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsReadOK, error)
+
+	DcimMavendorsUpdate(params *DcimMavendorsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsUpdateOK, error)
 
 	DcimPlatformsCreate(params *DcimPlatformsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPlatformsCreateCreated, error)
 
@@ -267,18 +303,6 @@ type ClientService interface {
 	DcimPlatformsUpdate(params *DcimPlatformsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPlatformsUpdateOK, error)
 
 	DcimPowerConnectionsList(params *DcimPowerConnectionsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerConnectionsListOK, error)
-
-	DcimPowerFeedsCreate(params *DcimPowerFeedsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsCreateCreated, error)
-
-	DcimPowerFeedsDelete(params *DcimPowerFeedsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsDeleteNoContent, error)
-
-	DcimPowerFeedsList(params *DcimPowerFeedsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsListOK, error)
-
-	DcimPowerFeedsPartialUpdate(params *DcimPowerFeedsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsPartialUpdateOK, error)
-
-	DcimPowerFeedsRead(params *DcimPowerFeedsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsReadOK, error)
-
-	DcimPowerFeedsUpdate(params *DcimPowerFeedsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsUpdateOK, error)
 
 	DcimPowerOutletTemplatesCreate(params *DcimPowerOutletTemplatesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerOutletTemplatesCreateCreated, error)
 
@@ -306,18 +330,6 @@ type ClientService interface {
 
 	DcimPowerOutletsUpdate(params *DcimPowerOutletsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerOutletsUpdateOK, error)
 
-	DcimPowerPanelsCreate(params *DcimPowerPanelsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsCreateCreated, error)
-
-	DcimPowerPanelsDelete(params *DcimPowerPanelsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsDeleteNoContent, error)
-
-	DcimPowerPanelsList(params *DcimPowerPanelsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsListOK, error)
-
-	DcimPowerPanelsPartialUpdate(params *DcimPowerPanelsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsPartialUpdateOK, error)
-
-	DcimPowerPanelsRead(params *DcimPowerPanelsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsReadOK, error)
-
-	DcimPowerPanelsUpdate(params *DcimPowerPanelsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsUpdateOK, error)
-
 	DcimPowerPortTemplatesCreate(params *DcimPowerPortTemplatesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPortTemplatesCreateCreated, error)
 
 	DcimPowerPortTemplatesDelete(params *DcimPowerPortTemplatesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPortTemplatesDeleteNoContent, error)
@@ -344,6 +356,18 @@ type ClientService interface {
 
 	DcimPowerPortsUpdate(params *DcimPowerPortsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPortsUpdateOK, error)
 
+	DcimPriorityCreate(params *DcimPriorityCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityCreateCreated, error)
+
+	DcimPriorityDelete(params *DcimPriorityDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityDeleteNoContent, error)
+
+	DcimPriorityList(params *DcimPriorityListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityListOK, error)
+
+	DcimPriorityPartialUpdate(params *DcimPriorityPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityPartialUpdateOK, error)
+
+	DcimPriorityRead(params *DcimPriorityReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityReadOK, error)
+
+	DcimPriorityUpdate(params *DcimPriorityUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityUpdateOK, error)
+
 	DcimRackGroupsCreate(params *DcimRackGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackGroupsCreateCreated, error)
 
 	DcimRackGroupsDelete(params *DcimRackGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackGroupsDeleteNoContent, error)
@@ -355,6 +379,18 @@ type ClientService interface {
 	DcimRackGroupsRead(params *DcimRackGroupsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackGroupsReadOK, error)
 
 	DcimRackGroupsUpdate(params *DcimRackGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackGroupsUpdateOK, error)
+
+	DcimRackOccupationsCreate(params *DcimRackOccupationsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsCreateCreated, error)
+
+	DcimRackOccupationsDelete(params *DcimRackOccupationsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsDeleteNoContent, error)
+
+	DcimRackOccupationsList(params *DcimRackOccupationsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsListOK, error)
+
+	DcimRackOccupationsPartialUpdate(params *DcimRackOccupationsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsPartialUpdateOK, error)
+
+	DcimRackOccupationsRead(params *DcimRackOccupationsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsReadOK, error)
+
+	DcimRackOccupationsUpdate(params *DcimRackOccupationsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsUpdateOK, error)
 
 	DcimRackReservationsCreate(params *DcimRackReservationsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackReservationsCreateCreated, error)
 
@@ -384,13 +420,13 @@ type ClientService interface {
 
 	DcimRacksDelete(params *DcimRacksDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksDeleteNoContent, error)
 
-	DcimRacksElevation(params *DcimRacksElevationParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksElevationOK, error)
-
 	DcimRacksList(params *DcimRacksListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksListOK, error)
 
 	DcimRacksPartialUpdate(params *DcimRacksPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksPartialUpdateOK, error)
 
 	DcimRacksRead(params *DcimRacksReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksReadOK, error)
+
+	DcimRacksUnits(params *DcimRacksUnitsParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksUnitsOK, error)
 
 	DcimRacksUpdate(params *DcimRacksUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksUpdateOK, error)
 
@@ -416,8 +452,6 @@ type ClientService interface {
 
 	DcimRearPortsRead(params *DcimRearPortsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRearPortsReadOK, error)
 
-	DcimRearPortsTrace(params *DcimRearPortsTraceParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRearPortsTraceOK, error)
-
 	DcimRearPortsUpdate(params *DcimRearPortsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRearPortsUpdateOK, error)
 
 	DcimRegionsCreate(params *DcimRegionsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRegionsCreateCreated, error)
@@ -431,6 +465,30 @@ type ClientService interface {
 	DcimRegionsRead(params *DcimRegionsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRegionsReadOK, error)
 
 	DcimRegionsUpdate(params *DcimRegionsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRegionsUpdateOK, error)
+
+	DcimSitecoordinatorsCreate(params *DcimSitecoordinatorsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsCreateCreated, error)
+
+	DcimSitecoordinatorsDelete(params *DcimSitecoordinatorsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsDeleteNoContent, error)
+
+	DcimSitecoordinatorsList(params *DcimSitecoordinatorsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsListOK, error)
+
+	DcimSitecoordinatorsPartialUpdate(params *DcimSitecoordinatorsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsPartialUpdateOK, error)
+
+	DcimSitecoordinatorsRead(params *DcimSitecoordinatorsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsReadOK, error)
+
+	DcimSitecoordinatorsUpdate(params *DcimSitecoordinatorsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsUpdateOK, error)
+
+	DcimSiteownersCreate(params *DcimSiteownersCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersCreateCreated, error)
+
+	DcimSiteownersDelete(params *DcimSiteownersDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersDeleteNoContent, error)
+
+	DcimSiteownersList(params *DcimSiteownersListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersListOK, error)
+
+	DcimSiteownersPartialUpdate(params *DcimSiteownersPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersPartialUpdateOK, error)
+
+	DcimSiteownersRead(params *DcimSiteownersReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersReadOK, error)
+
+	DcimSiteownersUpdate(params *DcimSiteownersUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersUpdateOK, error)
 
 	DcimSitesCreate(params *DcimSitesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitesCreateCreated, error)
 
@@ -459,6 +517,76 @@ type ClientService interface {
 	DcimVirtualChassisUpdate(params *DcimVirtualChassisUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimVirtualChassisUpdateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  DcimChoicesList dcim choices list API
+*/
+func (a *Client) DcimChoicesList(params *DcimChoicesListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimChoicesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimChoicesListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim__choices_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/_choices/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimChoicesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimChoicesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim__choices_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimChoicesRead dcim choices read API
+*/
+func (a *Client) DcimChoicesRead(params *DcimChoicesReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimChoicesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimChoicesReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim__choices_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/_choices/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimChoicesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimChoicesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim__choices_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -491,8 +619,9 @@ func (a *Client) DcimCablesCreate(params *DcimCablesCreateParams, authInfo runti
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimCablesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cables_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -595,8 +724,9 @@ func (a *Client) DcimCablesPartialUpdate(params *DcimCablesPartialUpdateParams, 
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimCablesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cables_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -664,8 +794,9 @@ func (a *Client) DcimCablesUpdate(params *DcimCablesUpdateParams, authInfo runti
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimCablesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cables_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -773,8 +904,9 @@ func (a *Client) DcimConsolePortTemplatesCreate(params *DcimConsolePortTemplates
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsolePortTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-port-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -877,8 +1009,9 @@ func (a *Client) DcimConsolePortTemplatesPartialUpdate(params *DcimConsolePortTe
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsolePortTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-port-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -946,8 +1079,9 @@ func (a *Client) DcimConsolePortTemplatesUpdate(params *DcimConsolePortTemplates
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsolePortTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-port-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -980,8 +1114,9 @@ func (a *Client) DcimConsolePortsCreate(params *DcimConsolePortsCreateParams, au
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsolePortsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-ports_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1084,8 +1219,9 @@ func (a *Client) DcimConsolePortsPartialUpdate(params *DcimConsolePortsPartialUp
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsolePortsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-ports_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1188,8 +1324,9 @@ func (a *Client) DcimConsolePortsUpdate(params *DcimConsolePortsUpdateParams, au
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsolePortsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-ports_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1222,8 +1359,9 @@ func (a *Client) DcimConsoleServerPortTemplatesCreate(params *DcimConsoleServerP
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsoleServerPortTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-server-port-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1326,8 +1464,9 @@ func (a *Client) DcimConsoleServerPortTemplatesPartialUpdate(params *DcimConsole
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsoleServerPortTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-server-port-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1395,8 +1534,9 @@ func (a *Client) DcimConsoleServerPortTemplatesUpdate(params *DcimConsoleServerP
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsoleServerPortTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-server-port-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1429,8 +1569,9 @@ func (a *Client) DcimConsoleServerPortsCreate(params *DcimConsoleServerPortsCrea
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsoleServerPortsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-server-ports_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1533,8 +1674,9 @@ func (a *Client) DcimConsoleServerPortsPartialUpdate(params *DcimConsoleServerPo
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsoleServerPortsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-server-ports_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1637,8 +1779,9 @@ func (a *Client) DcimConsoleServerPortsUpdate(params *DcimConsoleServerPortsUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimConsoleServerPortsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_console-server-ports_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1671,8 +1814,9 @@ func (a *Client) DcimDeviceBayTemplatesCreate(params *DcimDeviceBayTemplatesCrea
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceBayTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-bay-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1775,8 +1919,9 @@ func (a *Client) DcimDeviceBayTemplatesPartialUpdate(params *DcimDeviceBayTempla
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceBayTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-bay-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1844,8 +1989,9 @@ func (a *Client) DcimDeviceBayTemplatesUpdate(params *DcimDeviceBayTemplatesUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceBayTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-bay-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1878,8 +2024,9 @@ func (a *Client) DcimDeviceBaysCreate(params *DcimDeviceBaysCreateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceBaysCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-bays_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1982,8 +2129,9 @@ func (a *Client) DcimDeviceBaysPartialUpdate(params *DcimDeviceBaysPartialUpdate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceBaysPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-bays_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2051,8 +2199,219 @@ func (a *Client) DcimDeviceBaysUpdate(params *DcimDeviceBaysUpdateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceBaysUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-bays_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimDeviceDepartmentsCreate dcim device departments create API
+*/
+func (a *Client) DcimDeviceDepartmentsCreate(params *DcimDeviceDepartmentsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimDeviceDepartmentsCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_device-departments_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/device-departments/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimDeviceDepartmentsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimDeviceDepartmentsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-departments_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimDeviceDepartmentsDelete dcim device departments delete API
+*/
+func (a *Client) DcimDeviceDepartmentsDelete(params *DcimDeviceDepartmentsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimDeviceDepartmentsDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_device-departments_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/device-departments/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimDeviceDepartmentsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimDeviceDepartmentsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-departments_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimDeviceDepartmentsList dcim device departments list API
+*/
+func (a *Client) DcimDeviceDepartmentsList(params *DcimDeviceDepartmentsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimDeviceDepartmentsListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_device-departments_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/device-departments/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimDeviceDepartmentsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimDeviceDepartmentsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-departments_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimDeviceDepartmentsPartialUpdate dcim device departments partial update API
+*/
+func (a *Client) DcimDeviceDepartmentsPartialUpdate(params *DcimDeviceDepartmentsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimDeviceDepartmentsPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_device-departments_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/device-departments/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimDeviceDepartmentsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimDeviceDepartmentsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-departments_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimDeviceDepartmentsRead dcim device departments read API
+*/
+func (a *Client) DcimDeviceDepartmentsRead(params *DcimDeviceDepartmentsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimDeviceDepartmentsReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_device-departments_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/device-departments/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimDeviceDepartmentsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimDeviceDepartmentsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-departments_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimDeviceDepartmentsUpdate dcim device departments update API
+*/
+func (a *Client) DcimDeviceDepartmentsUpdate(params *DcimDeviceDepartmentsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDeviceDepartmentsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimDeviceDepartmentsUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_device-departments_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/device-departments/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimDeviceDepartmentsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimDeviceDepartmentsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-departments_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2085,8 +2444,9 @@ func (a *Client) DcimDeviceRolesCreate(params *DcimDeviceRolesCreateParams, auth
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceRolesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-roles_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2189,8 +2549,9 @@ func (a *Client) DcimDeviceRolesPartialUpdate(params *DcimDeviceRolesPartialUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceRolesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-roles_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2258,8 +2619,9 @@ func (a *Client) DcimDeviceRolesUpdate(params *DcimDeviceRolesUpdateParams, auth
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceRolesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-roles_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2292,8 +2654,9 @@ func (a *Client) DcimDeviceTypesCreate(params *DcimDeviceTypesCreateParams, auth
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceTypesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-types_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2396,8 +2759,9 @@ func (a *Client) DcimDeviceTypesPartialUpdate(params *DcimDeviceTypesPartialUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceTypesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-types_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2465,8 +2829,9 @@ func (a *Client) DcimDeviceTypesUpdate(params *DcimDeviceTypesUpdateParams, auth
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDeviceTypesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_device-types_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2499,8 +2864,9 @@ func (a *Client) DcimDevicesCreate(params *DcimDevicesCreateParams, authInfo run
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDevicesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_devices_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2535,41 +2901,6 @@ func (a *Client) DcimDevicesDelete(params *DcimDevicesDeleteParams, authInfo run
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for dcim_devices_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DcimDevicesGraphs A convenience method for rendering graphs for a particular Device.
-*/
-func (a *Client) DcimDevicesGraphs(params *DcimDevicesGraphsParams, authInfo runtime.ClientAuthInfoWriter) (*DcimDevicesGraphsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimDevicesGraphsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_devices_graphs",
-		Method:             "GET",
-		PathPattern:        "/dcim/devices/{id}/graphs/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimDevicesGraphsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimDevicesGraphsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_devices_graphs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -2673,8 +3004,9 @@ func (a *Client) DcimDevicesPartialUpdate(params *DcimDevicesPartialUpdateParams
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDevicesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_devices_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2742,8 +3074,9 @@ func (a *Client) DcimDevicesUpdate(params *DcimDevicesUpdateParams, authInfo run
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimDevicesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_devices_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2776,8 +3109,9 @@ func (a *Client) DcimFrontPortTemplatesCreate(params *DcimFrontPortTemplatesCrea
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimFrontPortTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_front-port-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2880,8 +3214,9 @@ func (a *Client) DcimFrontPortTemplatesPartialUpdate(params *DcimFrontPortTempla
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimFrontPortTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_front-port-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2949,8 +3284,9 @@ func (a *Client) DcimFrontPortTemplatesUpdate(params *DcimFrontPortTemplatesUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimFrontPortTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_front-port-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -2983,8 +3319,9 @@ func (a *Client) DcimFrontPortsCreate(params *DcimFrontPortsCreateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimFrontPortsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_front-ports_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3087,8 +3424,9 @@ func (a *Client) DcimFrontPortsPartialUpdate(params *DcimFrontPortsPartialUpdate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimFrontPortsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_front-ports_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3127,41 +3465,6 @@ func (a *Client) DcimFrontPortsRead(params *DcimFrontPortsReadParams, authInfo r
 }
 
 /*
-  DcimFrontPortsTrace Trace a complete cable path and return each segment as a three-tuple of (termination, cable, termination).
-*/
-func (a *Client) DcimFrontPortsTrace(params *DcimFrontPortsTraceParams, authInfo runtime.ClientAuthInfoWriter) (*DcimFrontPortsTraceOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimFrontPortsTraceParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_front-ports_trace",
-		Method:             "GET",
-		PathPattern:        "/dcim/front-ports/{id}/trace/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimFrontPortsTraceReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimFrontPortsTraceOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_front-ports_trace: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   DcimFrontPortsUpdate dcim front ports update API
 */
 func (a *Client) DcimFrontPortsUpdate(params *DcimFrontPortsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimFrontPortsUpdateOK, error) {
@@ -3191,8 +3494,9 @@ func (a *Client) DcimFrontPortsUpdate(params *DcimFrontPortsUpdateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimFrontPortsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_front-ports_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3260,8 +3564,9 @@ func (a *Client) DcimInterfaceTemplatesCreate(params *DcimInterfaceTemplatesCrea
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInterfaceTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_interface-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3364,8 +3669,9 @@ func (a *Client) DcimInterfaceTemplatesPartialUpdate(params *DcimInterfaceTempla
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInterfaceTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_interface-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3433,8 +3739,9 @@ func (a *Client) DcimInterfaceTemplatesUpdate(params *DcimInterfaceTemplatesUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInterfaceTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_interface-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3467,8 +3774,9 @@ func (a *Client) DcimInterfacesCreate(params *DcimInterfacesCreateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInterfacesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_interfaces_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3606,8 +3914,9 @@ func (a *Client) DcimInterfacesPartialUpdate(params *DcimInterfacesPartialUpdate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInterfacesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_interfaces_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3710,8 +4019,9 @@ func (a *Client) DcimInterfacesUpdate(params *DcimInterfacesUpdateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInterfacesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_interfaces_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3744,8 +4054,9 @@ func (a *Client) DcimInventoryItemsCreate(params *DcimInventoryItemsCreateParams
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInventoryItemsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_inventory-items_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3848,8 +4159,9 @@ func (a *Client) DcimInventoryItemsPartialUpdate(params *DcimInventoryItemsParti
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInventoryItemsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_inventory-items_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3917,8 +4229,219 @@ func (a *Client) DcimInventoryItemsUpdate(params *DcimInventoryItemsUpdateParams
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimInventoryItemsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_inventory-items_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimJirachangesCreate dcim jirachanges create API
+*/
+func (a *Client) DcimJirachangesCreate(params *DcimJirachangesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimJirachangesCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_jirachanges_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/jirachanges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimJirachangesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimJirachangesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_jirachanges_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimJirachangesDelete dcim jirachanges delete API
+*/
+func (a *Client) DcimJirachangesDelete(params *DcimJirachangesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimJirachangesDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_jirachanges_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/jirachanges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimJirachangesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimJirachangesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_jirachanges_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimJirachangesList dcim jirachanges list API
+*/
+func (a *Client) DcimJirachangesList(params *DcimJirachangesListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimJirachangesListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_jirachanges_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/jirachanges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimJirachangesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimJirachangesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_jirachanges_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimJirachangesPartialUpdate dcim jirachanges partial update API
+*/
+func (a *Client) DcimJirachangesPartialUpdate(params *DcimJirachangesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimJirachangesPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_jirachanges_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/jirachanges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimJirachangesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimJirachangesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_jirachanges_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimJirachangesRead dcim jirachanges read API
+*/
+func (a *Client) DcimJirachangesRead(params *DcimJirachangesReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimJirachangesReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_jirachanges_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/jirachanges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimJirachangesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimJirachangesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_jirachanges_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimJirachangesUpdate dcim jirachanges update API
+*/
+func (a *Client) DcimJirachangesUpdate(params *DcimJirachangesUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimJirachangesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimJirachangesUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_jirachanges_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/jirachanges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimJirachangesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimJirachangesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_jirachanges_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -3951,8 +4474,9 @@ func (a *Client) DcimManufacturersCreate(params *DcimManufacturersCreateParams, 
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimManufacturersCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_manufacturers_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4055,8 +4579,9 @@ func (a *Client) DcimManufacturersPartialUpdate(params *DcimManufacturersPartial
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimManufacturersPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_manufacturers_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4124,8 +4649,219 @@ func (a *Client) DcimManufacturersUpdate(params *DcimManufacturersUpdateParams, 
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimManufacturersUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_manufacturers_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimMavendorsCreate dcim mavendors create API
+*/
+func (a *Client) DcimMavendorsCreate(params *DcimMavendorsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMavendorsCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_mavendors_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/mavendors/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMavendorsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMavendorsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_mavendors_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimMavendorsDelete dcim mavendors delete API
+*/
+func (a *Client) DcimMavendorsDelete(params *DcimMavendorsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMavendorsDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_mavendors_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/mavendors/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMavendorsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMavendorsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_mavendors_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimMavendorsList dcim mavendors list API
+*/
+func (a *Client) DcimMavendorsList(params *DcimMavendorsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMavendorsListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_mavendors_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/mavendors/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMavendorsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMavendorsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_mavendors_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimMavendorsPartialUpdate dcim mavendors partial update API
+*/
+func (a *Client) DcimMavendorsPartialUpdate(params *DcimMavendorsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMavendorsPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_mavendors_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/mavendors/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMavendorsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMavendorsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_mavendors_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimMavendorsRead dcim mavendors read API
+*/
+func (a *Client) DcimMavendorsRead(params *DcimMavendorsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMavendorsReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_mavendors_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/mavendors/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMavendorsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMavendorsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_mavendors_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimMavendorsUpdate dcim mavendors update API
+*/
+func (a *Client) DcimMavendorsUpdate(params *DcimMavendorsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimMavendorsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMavendorsUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_mavendors_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/mavendors/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMavendorsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMavendorsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_mavendors_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4158,8 +4894,9 @@ func (a *Client) DcimPlatformsCreate(params *DcimPlatformsCreateParams, authInfo
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPlatformsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_platforms_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4262,8 +4999,9 @@ func (a *Client) DcimPlatformsPartialUpdate(params *DcimPlatformsPartialUpdatePa
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPlatformsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_platforms_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4331,8 +5069,9 @@ func (a *Client) DcimPlatformsUpdate(params *DcimPlatformsUpdateParams, authInfo
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPlatformsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_platforms_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4371,213 +5110,6 @@ func (a *Client) DcimPowerConnectionsList(params *DcimPowerConnectionsListParams
 }
 
 /*
-  DcimPowerFeedsCreate dcim power feeds create API
-*/
-func (a *Client) DcimPowerFeedsCreate(params *DcimPowerFeedsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsCreateCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerFeedsCreateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-feeds_create",
-		Method:             "POST",
-		PathPattern:        "/dcim/power-feeds/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerFeedsCreateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerFeedsCreateCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerFeedsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  DcimPowerFeedsDelete dcim power feeds delete API
-*/
-func (a *Client) DcimPowerFeedsDelete(params *DcimPowerFeedsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsDeleteNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerFeedsDeleteParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-feeds_delete",
-		Method:             "DELETE",
-		PathPattern:        "/dcim/power-feeds/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerFeedsDeleteReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerFeedsDeleteNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_power-feeds_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DcimPowerFeedsList dcim power feeds list API
-*/
-func (a *Client) DcimPowerFeedsList(params *DcimPowerFeedsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsListOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerFeedsListParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-feeds_list",
-		Method:             "GET",
-		PathPattern:        "/dcim/power-feeds/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerFeedsListReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerFeedsListOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_power-feeds_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DcimPowerFeedsPartialUpdate dcim power feeds partial update API
-*/
-func (a *Client) DcimPowerFeedsPartialUpdate(params *DcimPowerFeedsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsPartialUpdateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerFeedsPartialUpdateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-feeds_partial_update",
-		Method:             "PATCH",
-		PathPattern:        "/dcim/power-feeds/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerFeedsPartialUpdateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerFeedsPartialUpdateOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerFeedsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  DcimPowerFeedsRead dcim power feeds read API
-*/
-func (a *Client) DcimPowerFeedsRead(params *DcimPowerFeedsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsReadOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerFeedsReadParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-feeds_read",
-		Method:             "GET",
-		PathPattern:        "/dcim/power-feeds/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerFeedsReadReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerFeedsReadOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_power-feeds_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DcimPowerFeedsUpdate dcim power feeds update API
-*/
-func (a *Client) DcimPowerFeedsUpdate(params *DcimPowerFeedsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerFeedsUpdateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerFeedsUpdateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-feeds_update",
-		Method:             "PUT",
-		PathPattern:        "/dcim/power-feeds/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerFeedsUpdateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerFeedsUpdateOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerFeedsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
   DcimPowerOutletTemplatesCreate dcim power outlet templates create API
 */
 func (a *Client) DcimPowerOutletTemplatesCreate(params *DcimPowerOutletTemplatesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerOutletTemplatesCreateCreated, error) {
@@ -4607,8 +5139,9 @@ func (a *Client) DcimPowerOutletTemplatesCreate(params *DcimPowerOutletTemplates
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerOutletTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-outlet-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4711,8 +5244,9 @@ func (a *Client) DcimPowerOutletTemplatesPartialUpdate(params *DcimPowerOutletTe
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerOutletTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-outlet-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4780,8 +5314,9 @@ func (a *Client) DcimPowerOutletTemplatesUpdate(params *DcimPowerOutletTemplates
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerOutletTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-outlet-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4814,8 +5349,9 @@ func (a *Client) DcimPowerOutletsCreate(params *DcimPowerOutletsCreateParams, au
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerOutletsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-outlets_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -4918,8 +5454,9 @@ func (a *Client) DcimPowerOutletsPartialUpdate(params *DcimPowerOutletsPartialUp
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerOutletsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-outlets_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5022,215 +5559,9 @@ func (a *Client) DcimPowerOutletsUpdate(params *DcimPowerOutletsUpdateParams, au
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerOutletsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  DcimPowerPanelsCreate dcim power panels create API
-*/
-func (a *Client) DcimPowerPanelsCreate(params *DcimPowerPanelsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsCreateCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerPanelsCreateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-panels_create",
-		Method:             "POST",
-		PathPattern:        "/dcim/power-panels/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerPanelsCreateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerPanelsCreateCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPanelsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  DcimPowerPanelsDelete dcim power panels delete API
-*/
-func (a *Client) DcimPowerPanelsDelete(params *DcimPowerPanelsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsDeleteNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerPanelsDeleteParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-panels_delete",
-		Method:             "DELETE",
-		PathPattern:        "/dcim/power-panels/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerPanelsDeleteReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerPanelsDeleteNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_power-panels_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for dcim_power-outlets_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
-}
-
-/*
-  DcimPowerPanelsList dcim power panels list API
-*/
-func (a *Client) DcimPowerPanelsList(params *DcimPowerPanelsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsListOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerPanelsListParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-panels_list",
-		Method:             "GET",
-		PathPattern:        "/dcim/power-panels/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerPanelsListReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerPanelsListOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_power-panels_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DcimPowerPanelsPartialUpdate dcim power panels partial update API
-*/
-func (a *Client) DcimPowerPanelsPartialUpdate(params *DcimPowerPanelsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsPartialUpdateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerPanelsPartialUpdateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-panels_partial_update",
-		Method:             "PATCH",
-		PathPattern:        "/dcim/power-panels/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerPanelsPartialUpdateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerPanelsPartialUpdateOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPanelsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  DcimPowerPanelsRead dcim power panels read API
-*/
-func (a *Client) DcimPowerPanelsRead(params *DcimPowerPanelsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsReadOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerPanelsReadParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-panels_read",
-		Method:             "GET",
-		PathPattern:        "/dcim/power-panels/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerPanelsReadReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerPanelsReadOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_power-panels_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DcimPowerPanelsUpdate dcim power panels update API
-*/
-func (a *Client) DcimPowerPanelsUpdate(params *DcimPowerPanelsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPowerPanelsUpdateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimPowerPanelsUpdateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_power-panels_update",
-		Method:             "PUT",
-		PathPattern:        "/dcim/power-panels/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimPowerPanelsUpdateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimPowerPanelsUpdateOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPanelsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
@@ -5263,8 +5594,9 @@ func (a *Client) DcimPowerPortTemplatesCreate(params *DcimPowerPortTemplatesCrea
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPortTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-port-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5367,8 +5699,9 @@ func (a *Client) DcimPowerPortTemplatesPartialUpdate(params *DcimPowerPortTempla
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPortTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-port-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5436,8 +5769,9 @@ func (a *Client) DcimPowerPortTemplatesUpdate(params *DcimPowerPortTemplatesUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPortTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-port-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5470,8 +5804,9 @@ func (a *Client) DcimPowerPortsCreate(params *DcimPowerPortsCreateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPortsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-ports_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5574,8 +5909,9 @@ func (a *Client) DcimPowerPortsPartialUpdate(params *DcimPowerPortsPartialUpdate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPortsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-ports_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5678,8 +6014,219 @@ func (a *Client) DcimPowerPortsUpdate(params *DcimPowerPortsUpdateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimPowerPortsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_power-ports_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimPriorityCreate dcim priority create API
+*/
+func (a *Client) DcimPriorityCreate(params *DcimPriorityCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimPriorityCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_priority_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/priority/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimPriorityCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimPriorityCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_priority_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimPriorityDelete dcim priority delete API
+*/
+func (a *Client) DcimPriorityDelete(params *DcimPriorityDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimPriorityDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_priority_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/priority/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimPriorityDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimPriorityDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_priority_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimPriorityList dcim priority list API
+*/
+func (a *Client) DcimPriorityList(params *DcimPriorityListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimPriorityListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_priority_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/priority/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimPriorityListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimPriorityListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_priority_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimPriorityPartialUpdate dcim priority partial update API
+*/
+func (a *Client) DcimPriorityPartialUpdate(params *DcimPriorityPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimPriorityPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_priority_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/priority/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimPriorityPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimPriorityPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_priority_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimPriorityRead dcim priority read API
+*/
+func (a *Client) DcimPriorityRead(params *DcimPriorityReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimPriorityReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_priority_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/priority/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimPriorityReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimPriorityReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_priority_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimPriorityUpdate dcim priority update API
+*/
+func (a *Client) DcimPriorityUpdate(params *DcimPriorityUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimPriorityUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimPriorityUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_priority_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/priority/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimPriorityUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimPriorityUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_priority_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5712,8 +6259,9 @@ func (a *Client) DcimRackGroupsCreate(params *DcimRackGroupsCreateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackGroupsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-groups_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5816,8 +6364,9 @@ func (a *Client) DcimRackGroupsPartialUpdate(params *DcimRackGroupsPartialUpdate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackGroupsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-groups_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5885,8 +6434,219 @@ func (a *Client) DcimRackGroupsUpdate(params *DcimRackGroupsUpdateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackGroupsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-groups_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimRackOccupationsCreate dcim rack occupations create API
+*/
+func (a *Client) DcimRackOccupationsCreate(params *DcimRackOccupationsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackOccupationsCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_rack-occupations_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/rack-occupations/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackOccupationsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackOccupationsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-occupations_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimRackOccupationsDelete dcim rack occupations delete API
+*/
+func (a *Client) DcimRackOccupationsDelete(params *DcimRackOccupationsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackOccupationsDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_rack-occupations_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/rack-occupations/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackOccupationsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackOccupationsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-occupations_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimRackOccupationsList dcim rack occupations list API
+*/
+func (a *Client) DcimRackOccupationsList(params *DcimRackOccupationsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackOccupationsListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_rack-occupations_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/rack-occupations/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackOccupationsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackOccupationsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-occupations_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimRackOccupationsPartialUpdate dcim rack occupations partial update API
+*/
+func (a *Client) DcimRackOccupationsPartialUpdate(params *DcimRackOccupationsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackOccupationsPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_rack-occupations_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/rack-occupations/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackOccupationsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackOccupationsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-occupations_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimRackOccupationsRead dcim rack occupations read API
+*/
+func (a *Client) DcimRackOccupationsRead(params *DcimRackOccupationsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackOccupationsReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_rack-occupations_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/rack-occupations/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackOccupationsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackOccupationsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-occupations_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimRackOccupationsUpdate dcim rack occupations update API
+*/
+func (a *Client) DcimRackOccupationsUpdate(params *DcimRackOccupationsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRackOccupationsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackOccupationsUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_rack-occupations_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/rack-occupations/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackOccupationsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackOccupationsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-occupations_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -5919,8 +6679,9 @@ func (a *Client) DcimRackReservationsCreate(params *DcimRackReservationsCreatePa
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackReservationsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-reservations_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6023,8 +6784,9 @@ func (a *Client) DcimRackReservationsPartialUpdate(params *DcimRackReservationsP
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackReservationsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-reservations_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6092,8 +6854,9 @@ func (a *Client) DcimRackReservationsUpdate(params *DcimRackReservationsUpdatePa
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackReservationsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-reservations_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6126,8 +6889,9 @@ func (a *Client) DcimRackRolesCreate(params *DcimRackRolesCreateParams, authInfo
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackRolesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-roles_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6230,8 +6994,9 @@ func (a *Client) DcimRackRolesPartialUpdate(params *DcimRackRolesPartialUpdatePa
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackRolesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-roles_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6299,8 +7064,9 @@ func (a *Client) DcimRackRolesUpdate(params *DcimRackRolesUpdateParams, authInfo
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRackRolesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rack-roles_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6333,8 +7099,9 @@ func (a *Client) DcimRacksCreate(params *DcimRacksCreateParams, authInfo runtime
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRacksCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_racks_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6369,41 +7136,6 @@ func (a *Client) DcimRacksDelete(params *DcimRacksDeleteParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for dcim_racks_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DcimRacksElevation Rack elevation representing the list of rack units. Also supports rendering the elevation as an SVG.
-*/
-func (a *Client) DcimRacksElevation(params *DcimRacksElevationParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksElevationOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimRacksElevationParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_racks_elevation",
-		Method:             "GET",
-		PathPattern:        "/dcim/racks/{id}/elevation/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimRacksElevationReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimRacksElevationOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_racks_elevation: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -6472,8 +7204,9 @@ func (a *Client) DcimRacksPartialUpdate(params *DcimRacksPartialUpdateParams, au
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRacksPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_racks_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6512,6 +7245,41 @@ func (a *Client) DcimRacksRead(params *DcimRacksReadParams, authInfo runtime.Cli
 }
 
 /*
+  DcimRacksUnits List rack units (by rack)
+*/
+func (a *Client) DcimRacksUnits(params *DcimRacksUnitsParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksUnitsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRacksUnitsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_racks_units",
+		Method:             "GET",
+		PathPattern:        "/dcim/racks/{id}/units/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRacksUnitsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRacksUnitsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_racks_units: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   DcimRacksUpdate dcim racks update API
 */
 func (a *Client) DcimRacksUpdate(params *DcimRacksUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRacksUpdateOK, error) {
@@ -6541,8 +7309,9 @@ func (a *Client) DcimRacksUpdate(params *DcimRacksUpdateParams, authInfo runtime
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRacksUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_racks_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6575,8 +7344,9 @@ func (a *Client) DcimRearPortTemplatesCreate(params *DcimRearPortTemplatesCreate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRearPortTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rear-port-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6679,8 +7449,9 @@ func (a *Client) DcimRearPortTemplatesPartialUpdate(params *DcimRearPortTemplate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRearPortTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rear-port-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6748,8 +7519,9 @@ func (a *Client) DcimRearPortTemplatesUpdate(params *DcimRearPortTemplatesUpdate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRearPortTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rear-port-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6782,8 +7554,9 @@ func (a *Client) DcimRearPortsCreate(params *DcimRearPortsCreateParams, authInfo
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRearPortsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rear-ports_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6886,8 +7659,9 @@ func (a *Client) DcimRearPortsPartialUpdate(params *DcimRearPortsPartialUpdatePa
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRearPortsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rear-ports_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -6926,41 +7700,6 @@ func (a *Client) DcimRearPortsRead(params *DcimRearPortsReadParams, authInfo run
 }
 
 /*
-  DcimRearPortsTrace Trace a complete cable path and return each segment as a three-tuple of (termination, cable, termination).
-*/
-func (a *Client) DcimRearPortsTrace(params *DcimRearPortsTraceParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRearPortsTraceOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimRearPortsTraceParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "dcim_rear-ports_trace",
-		Method:             "GET",
-		PathPattern:        "/dcim/rear-ports/{id}/trace/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimRearPortsTraceReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimRearPortsTraceOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_rear-ports_trace: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   DcimRearPortsUpdate dcim rear ports update API
 */
 func (a *Client) DcimRearPortsUpdate(params *DcimRearPortsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimRearPortsUpdateOK, error) {
@@ -6990,8 +7729,9 @@ func (a *Client) DcimRearPortsUpdate(params *DcimRearPortsUpdateParams, authInfo
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRearPortsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_rear-ports_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7024,8 +7764,9 @@ func (a *Client) DcimRegionsCreate(params *DcimRegionsCreateParams, authInfo run
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRegionsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_regions_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7128,8 +7869,9 @@ func (a *Client) DcimRegionsPartialUpdate(params *DcimRegionsPartialUpdateParams
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRegionsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_regions_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7197,8 +7939,429 @@ func (a *Client) DcimRegionsUpdate(params *DcimRegionsUpdateParams, authInfo run
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimRegionsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_regions_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSitecoordinatorsCreate dcim sitecoordinators create API
+*/
+func (a *Client) DcimSitecoordinatorsCreate(params *DcimSitecoordinatorsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSitecoordinatorsCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_sitecoordinators_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/sitecoordinators/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSitecoordinatorsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSitecoordinatorsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sitecoordinators_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSitecoordinatorsDelete dcim sitecoordinators delete API
+*/
+func (a *Client) DcimSitecoordinatorsDelete(params *DcimSitecoordinatorsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSitecoordinatorsDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_sitecoordinators_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/sitecoordinators/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSitecoordinatorsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSitecoordinatorsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sitecoordinators_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSitecoordinatorsList dcim sitecoordinators list API
+*/
+func (a *Client) DcimSitecoordinatorsList(params *DcimSitecoordinatorsListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSitecoordinatorsListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_sitecoordinators_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/sitecoordinators/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSitecoordinatorsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSitecoordinatorsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sitecoordinators_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSitecoordinatorsPartialUpdate dcim sitecoordinators partial update API
+*/
+func (a *Client) DcimSitecoordinatorsPartialUpdate(params *DcimSitecoordinatorsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSitecoordinatorsPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_sitecoordinators_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/sitecoordinators/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSitecoordinatorsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSitecoordinatorsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sitecoordinators_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSitecoordinatorsRead dcim sitecoordinators read API
+*/
+func (a *Client) DcimSitecoordinatorsRead(params *DcimSitecoordinatorsReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSitecoordinatorsReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_sitecoordinators_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/sitecoordinators/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSitecoordinatorsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSitecoordinatorsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sitecoordinators_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSitecoordinatorsUpdate dcim sitecoordinators update API
+*/
+func (a *Client) DcimSitecoordinatorsUpdate(params *DcimSitecoordinatorsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSitecoordinatorsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSitecoordinatorsUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_sitecoordinators_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/sitecoordinators/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSitecoordinatorsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSitecoordinatorsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sitecoordinators_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSiteownersCreate dcim siteowners create API
+*/
+func (a *Client) DcimSiteownersCreate(params *DcimSiteownersCreateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSiteownersCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_siteowners_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/siteowners/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSiteownersCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSiteownersCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_siteowners_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSiteownersDelete dcim siteowners delete API
+*/
+func (a *Client) DcimSiteownersDelete(params *DcimSiteownersDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSiteownersDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_siteowners_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/siteowners/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSiteownersDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSiteownersDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_siteowners_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSiteownersList dcim siteowners list API
+*/
+func (a *Client) DcimSiteownersList(params *DcimSiteownersListParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSiteownersListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_siteowners_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/siteowners/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSiteownersListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSiteownersListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_siteowners_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSiteownersPartialUpdate dcim siteowners partial update API
+*/
+func (a *Client) DcimSiteownersPartialUpdate(params *DcimSiteownersPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSiteownersPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_siteowners_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/siteowners/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSiteownersPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSiteownersPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_siteowners_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSiteownersRead dcim siteowners read API
+*/
+func (a *Client) DcimSiteownersRead(params *DcimSiteownersReadParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSiteownersReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_siteowners_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/siteowners/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSiteownersReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSiteownersReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_siteowners_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DcimSiteownersUpdate dcim siteowners update API
+*/
+func (a *Client) DcimSiteownersUpdate(params *DcimSiteownersUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*DcimSiteownersUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimSiteownersUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "dcim_siteowners_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/siteowners/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimSiteownersUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimSiteownersUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_siteowners_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7231,8 +8394,9 @@ func (a *Client) DcimSitesCreate(params *DcimSitesCreateParams, authInfo runtime
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimSitesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sites_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7370,8 +8534,9 @@ func (a *Client) DcimSitesPartialUpdate(params *DcimSitesPartialUpdateParams, au
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimSitesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sites_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7439,8 +8604,9 @@ func (a *Client) DcimSitesUpdate(params *DcimSitesUpdateParams, authInfo runtime
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimSitesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_sites_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7473,8 +8639,9 @@ func (a *Client) DcimVirtualChassisCreate(params *DcimVirtualChassisCreateParams
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimVirtualChassisCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_virtual-chassis_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7577,8 +8744,9 @@ func (a *Client) DcimVirtualChassisPartialUpdate(params *DcimVirtualChassisParti
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimVirtualChassisPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_virtual-chassis_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -7646,8 +8814,9 @@ func (a *Client) DcimVirtualChassisUpdate(params *DcimVirtualChassisUpdateParams
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*DcimVirtualChassisUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_virtual-chassis_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

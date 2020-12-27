@@ -44,12 +44,12 @@ type WritablePrefix struct {
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
 	// Description
-	// Max Length: 200
+	// Max Length: 100
 	Description string `json:"description,omitempty"`
 
 	// Family
 	// Read Only: true
-	Family string `json:"family,omitempty"`
+	Family int64 `json:"family,omitempty"`
 
 	// ID
 	// Read Only: true
@@ -82,19 +82,14 @@ type WritablePrefix struct {
 	// Status
 	//
 	// Operational status of this prefix
-	// Enum: [container active reserved deprecated]
-	Status string `json:"status,omitempty"`
+	// Enum: [0 1 2 3]
+	Status int64 `json:"status,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// Tenant
 	Tenant *int64 `json:"tenant,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 
 	// VLAN
 	Vlan *int64 `json:"vlan,omitempty"`
@@ -131,10 +126,6 @@ func (m *WritablePrefix) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateURL(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -160,7 +151,7 @@ func (m *WritablePrefix) validateDescription(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", string(m.Description), 100); err != nil {
 		return err
 	}
 
@@ -192,8 +183,8 @@ func (m *WritablePrefix) validatePrefix(formats strfmt.Registry) error {
 var writablePrefixTypeStatusPropEnum []interface{}
 
 func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["container","active","reserved","deprecated"]`), &res); err != nil {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[0,1,2,3]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -201,23 +192,8 @@ func init() {
 	}
 }
 
-const (
-
-	// WritablePrefixStatusContainer captures enum value "container"
-	WritablePrefixStatusContainer string = "container"
-
-	// WritablePrefixStatusActive captures enum value "active"
-	WritablePrefixStatusActive string = "active"
-
-	// WritablePrefixStatusReserved captures enum value "reserved"
-	WritablePrefixStatusReserved string = "reserved"
-
-	// WritablePrefixStatusDeprecated captures enum value "deprecated"
-	WritablePrefixStatusDeprecated string = "deprecated"
-)
-
 // prop value enum
-func (m *WritablePrefix) validateStatusEnum(path, location string, value string) error {
+func (m *WritablePrefix) validateStatusEnum(path, location string, value int64) error {
 	if err := validate.EnumCase(path, location, value, writablePrefixTypeStatusPropEnum, true); err != nil {
 		return err
 	}
@@ -245,32 +221,11 @@ func (m *WritablePrefix) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
+
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *WritablePrefix) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

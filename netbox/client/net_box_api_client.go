@@ -25,14 +25,13 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/huazhihao/go-netbox/netbox/client/circuits"
-	"github.com/huazhihao/go-netbox/netbox/client/dcim"
-	"github.com/huazhihao/go-netbox/netbox/client/extras"
-	"github.com/huazhihao/go-netbox/netbox/client/ipam"
-	"github.com/huazhihao/go-netbox/netbox/client/secrets"
-	"github.com/huazhihao/go-netbox/netbox/client/tenancy"
-	"github.com/huazhihao/go-netbox/netbox/client/users"
-	"github.com/huazhihao/go-netbox/netbox/client/virtualization"
+	"github.com/huazhihao/go-netbox/client/circuits"
+	"github.com/huazhihao/go-netbox/client/dcim"
+	"github.com/huazhihao/go-netbox/client/extras"
+	"github.com/huazhihao/go-netbox/client/ipam"
+	"github.com/huazhihao/go-netbox/client/secrets"
+	"github.com/huazhihao/go-netbox/client/tenancy"
+	"github.com/huazhihao/go-netbox/client/virtualization"
 )
 
 // Default net box API HTTP client.
@@ -41,7 +40,7 @@ var Default = NewHTTPClient(nil)
 const (
 	// DefaultHost is the default Host
 	// found in Meta (info) section of spec file
-	DefaultHost string = "localhost:8000"
+	DefaultHost string = "netbox.bytedance.net"
 	// DefaultBasePath is the default BasePath
 	// found in Meta (info) section of spec file
 	DefaultBasePath string = "/api"
@@ -83,7 +82,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *NetBoxAPI 
 	cli.Ipam = ipam.New(transport, formats)
 	cli.Secrets = secrets.New(transport, formats)
 	cli.Tenancy = tenancy.New(transport, formats)
-	cli.Users = users.New(transport, formats)
 	cli.Virtualization = virtualization.New(transport, formats)
 	return cli
 }
@@ -141,8 +139,6 @@ type NetBoxAPI struct {
 
 	Tenancy tenancy.ClientService
 
-	Users users.ClientService
-
 	Virtualization virtualization.ClientService
 
 	Transport runtime.ClientTransport
@@ -157,6 +153,5 @@ func (c *NetBoxAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Ipam.SetTransport(transport)
 	c.Secrets.SetTransport(transport)
 	c.Tenancy.SetTransport(transport)
-	c.Users.SetTransport(transport)
 	c.Virtualization.SetTransport(transport)
 }

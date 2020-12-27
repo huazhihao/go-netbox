@@ -41,11 +41,19 @@ type Device struct {
 	// Max Length: 50
 	AssetTag *string `json:"asset_tag,omitempty"`
 
+	// Backup date
+	// Format: date
+	BackupDate *strfmt.Date `json:"backup_date,omitempty"`
+
 	// cluster
 	Cluster *NestedCluster `json:"cluster,omitempty"`
 
 	// Comments
 	Comments string `json:"comments,omitempty"`
+
+	// Compliance_status
+	// Enum: [0 1]
+	ComplianceCheckStatus int64 `json:"compliance_check_status,omitempty"`
 
 	// Created
 	// Read Only: true
@@ -54,6 +62,10 @@ type Device struct {
 
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
+
+	// device department
+	// Required: true
+	DeviceDepartment *NestedDeviceDepartment `json:"device_department"`
 
 	// device role
 	// Required: true
@@ -82,12 +94,27 @@ type Device struct {
 	// Local context data
 	LocalContextData *string `json:"local_context_data,omitempty"`
 
+	// Managementip
+	// Max Length: 64
+	// Min Length: 1
+	Managementip *string `json:"managementip,omitempty"`
+
+	// mavendor
+	// Required: true
+	Mavendor *NestedMAvendor `json:"mavendor"`
+
 	// Name
 	// Max Length: 64
+	// Min Length: 1
 	Name *string `json:"name,omitempty"`
 
-	// parent device
-	ParentDevice *NestedDevice `json:"parent_device,omitempty"`
+	// Os version
+	// Max Length: 50
+	OsVersion *string `json:"os_version,omitempty"`
+
+	// Parent device
+	// Read Only: true
+	ParentDevice string `json:"parent_device,omitempty"`
 
 	// platform
 	Platform *NestedPlatform `json:"platform,omitempty"`
@@ -108,12 +135,15 @@ type Device struct {
 	// primary ip6
 	PrimaryIp6 *NestedIPAddress `json:"primary_ip6,omitempty"`
 
+	// priority
+	Priority *DevicePriority `json:"priority,omitempty"`
+
 	// rack
 	Rack *NestedRack `json:"rack,omitempty"`
 
 	// Serial number
 	// Max Length: 50
-	Serial string `json:"serial,omitempty"`
+	Serial *string `json:"serial,omitempty"`
 
 	// site
 	// Required: true
@@ -123,15 +153,10 @@ type Device struct {
 	Status *DeviceStatus `json:"status,omitempty"`
 
 	// tags
-	Tags []*NestedTag `json:"tags,omitempty"`
+	Tags []string `json:"tags"`
 
 	// tenant
 	Tenant *NestedTenant `json:"tenant,omitempty"`
-
-	// Url
-	// Read Only: true
-	// Format: uri
-	URL strfmt.URI `json:"url,omitempty"`
 
 	// Vc position
 	// Maximum: 255
@@ -155,11 +180,23 @@ func (m *Device) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateBackupDate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCluster(formats); err != nil {
 		res = append(res, err)
 	}
 
+	if err := m.validateComplianceCheckStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCreated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDeviceDepartment(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -179,11 +216,19 @@ func (m *Device) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateManagementip(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMavendor(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateParentDevice(formats); err != nil {
+	if err := m.validateOsVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -204,6 +249,10 @@ func (m *Device) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePrimaryIp6(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePriority(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -228,10 +277,6 @@ func (m *Device) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTenant(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -266,6 +311,19 @@ func (m *Device) validateAssetTag(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Device) validateBackupDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.BackupDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("backup_date", "body", "date", m.BackupDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *Device) validateCluster(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Cluster) { // not required
@@ -284,6 +342,40 @@ func (m *Device) validateCluster(formats strfmt.Registry) error {
 	return nil
 }
 
+var deviceTypeComplianceCheckStatusPropEnum []interface{}
+
+func init() {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[0,1]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		deviceTypeComplianceCheckStatusPropEnum = append(deviceTypeComplianceCheckStatusPropEnum, v)
+	}
+}
+
+// prop value enum
+func (m *Device) validateComplianceCheckStatusEnum(path, location string, value int64) error {
+	if err := validate.EnumCase(path, location, value, deviceTypeComplianceCheckStatusPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *Device) validateComplianceCheckStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ComplianceCheckStatus) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateComplianceCheckStatusEnum("compliance_check_status", "body", m.ComplianceCheckStatus); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *Device) validateCreated(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Created) { // not required
@@ -292,6 +384,24 @@ func (m *Device) validateCreated(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("created", "body", "date", m.Created.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Device) validateDeviceDepartment(formats strfmt.Registry) error {
+
+	if err := validate.Required("device_department", "body", m.DeviceDepartment); err != nil {
+		return err
+	}
+
+	if m.DeviceDepartment != nil {
+		if err := m.DeviceDepartment.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("device_department")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -364,10 +474,49 @@ func (m *Device) validateLastUpdated(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Device) validateManagementip(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Managementip) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("managementip", "body", string(*m.Managementip), 1); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("managementip", "body", string(*m.Managementip), 64); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Device) validateMavendor(formats strfmt.Registry) error {
+
+	if err := validate.Required("mavendor", "body", m.Mavendor); err != nil {
+		return err
+	}
+
+	if m.Mavendor != nil {
+		if err := m.Mavendor.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("mavendor")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Device) validateName(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Name) { // not required
 		return nil
+	}
+
+	if err := validate.MinLength("name", "body", string(*m.Name), 1); err != nil {
+		return err
 	}
 
 	if err := validate.MaxLength("name", "body", string(*m.Name), 64); err != nil {
@@ -377,19 +526,14 @@ func (m *Device) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Device) validateParentDevice(formats strfmt.Registry) error {
+func (m *Device) validateOsVersion(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ParentDevice) { // not required
+	if swag.IsZero(m.OsVersion) { // not required
 		return nil
 	}
 
-	if m.ParentDevice != nil {
-		if err := m.ParentDevice.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("parent_device")
-			}
-			return err
-		}
+	if err := validate.MaxLength("os_version", "body", string(*m.OsVersion), 50); err != nil {
+		return err
 	}
 
 	return nil
@@ -484,6 +628,24 @@ func (m *Device) validatePrimaryIp6(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Device) validatePriority(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Priority) { // not required
+		return nil
+	}
+
+	if m.Priority != nil {
+		if err := m.Priority.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("priority")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Device) validateRack(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Rack) { // not required
@@ -508,7 +670,7 @@ func (m *Device) validateSerial(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("serial", "body", string(m.Serial), 50); err != nil {
+	if err := validate.MaxLength("serial", "body", string(*m.Serial), 50); err != nil {
 		return err
 	}
 
@@ -558,17 +720,9 @@ func (m *Device) validateTags(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
+		if err := validate.MinLength("tags"+"."+strconv.Itoa(i), "body", string(m.Tags[i]), 1); err != nil {
+			return err
 		}
 
 	}
@@ -589,19 +743,6 @@ func (m *Device) validateTenant(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *Device) validateURL(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.URL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
@@ -684,13 +825,11 @@ type DeviceFace struct {
 
 	// label
 	// Required: true
-	// Enum: [Front Rear]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [front rear]
-	Value *string `json:"value"`
+	Value *int64 `json:"value"`
 }
 
 // Validate validates this device face
@@ -711,86 +850,18 @@ func (m *DeviceFace) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var deviceFaceTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["Front","Rear"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		deviceFaceTypeLabelPropEnum = append(deviceFaceTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// DeviceFaceLabelFront captures enum value "Front"
-	DeviceFaceLabelFront string = "Front"
-
-	// DeviceFaceLabelRear captures enum value "Rear"
-	DeviceFaceLabelRear string = "Rear"
-)
-
-// prop value enum
-func (m *DeviceFace) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, deviceFaceTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *DeviceFace) validateLabel(formats strfmt.Registry) error {
 
 	if err := validate.Required("face"+"."+"label", "body", m.Label); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateLabelEnum("face"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var deviceFaceTypeValuePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["front","rear"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		deviceFaceTypeValuePropEnum = append(deviceFaceTypeValuePropEnum, v)
-	}
-}
-
-const (
-
-	// DeviceFaceValueFront captures enum value "front"
-	DeviceFaceValueFront string = "front"
-
-	// DeviceFaceValueRear captures enum value "rear"
-	DeviceFaceValueRear string = "rear"
-)
-
-// prop value enum
-func (m *DeviceFace) validateValueEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, deviceFaceTypeValuePropEnum, true); err != nil {
-		return err
-	}
 	return nil
 }
 
 func (m *DeviceFace) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("face"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("face"+"."+"value", "body", *m.Value); err != nil {
 		return err
 	}
 
@@ -815,6 +886,74 @@ func (m *DeviceFace) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
+// DevicePriority Priority
+//
+// swagger:model DevicePriority
+type DevicePriority struct {
+
+	// label
+	// Required: true
+	Label *string `json:"label"`
+
+	// value
+	// Required: true
+	Value *int64 `json:"value"`
+}
+
+// Validate validates this device priority
+func (m *DevicePriority) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DevicePriority) validateLabel(formats strfmt.Registry) error {
+
+	if err := validate.Required("priority"+"."+"label", "body", m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DevicePriority) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("priority"+"."+"value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *DevicePriority) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *DevicePriority) UnmarshalBinary(b []byte) error {
+	var res DevicePriority
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
 // DeviceStatus Status
 //
 // swagger:model DeviceStatus
@@ -822,13 +961,11 @@ type DeviceStatus struct {
 
 	// label
 	// Required: true
-	// Enum: [Offline Active Planned Staged Failed Inventory Decommissioning]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [offline active planned staged failed inventory decommissioning]
-	Value *string `json:"value"`
+	Value *int64 `json:"value"`
 }
 
 // Validate validates this device status
@@ -849,116 +986,18 @@ func (m *DeviceStatus) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var deviceStatusTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["Offline","Active","Planned","Staged","Failed","Inventory","Decommissioning"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		deviceStatusTypeLabelPropEnum = append(deviceStatusTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// DeviceStatusLabelOffline captures enum value "Offline"
-	DeviceStatusLabelOffline string = "Offline"
-
-	// DeviceStatusLabelActive captures enum value "Active"
-	DeviceStatusLabelActive string = "Active"
-
-	// DeviceStatusLabelPlanned captures enum value "Planned"
-	DeviceStatusLabelPlanned string = "Planned"
-
-	// DeviceStatusLabelStaged captures enum value "Staged"
-	DeviceStatusLabelStaged string = "Staged"
-
-	// DeviceStatusLabelFailed captures enum value "Failed"
-	DeviceStatusLabelFailed string = "Failed"
-
-	// DeviceStatusLabelInventory captures enum value "Inventory"
-	DeviceStatusLabelInventory string = "Inventory"
-
-	// DeviceStatusLabelDecommissioning captures enum value "Decommissioning"
-	DeviceStatusLabelDecommissioning string = "Decommissioning"
-)
-
-// prop value enum
-func (m *DeviceStatus) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, deviceStatusTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *DeviceStatus) validateLabel(formats strfmt.Registry) error {
 
 	if err := validate.Required("status"+"."+"label", "body", m.Label); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateLabelEnum("status"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var deviceStatusTypeValuePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["offline","active","planned","staged","failed","inventory","decommissioning"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		deviceStatusTypeValuePropEnum = append(deviceStatusTypeValuePropEnum, v)
-	}
-}
-
-const (
-
-	// DeviceStatusValueOffline captures enum value "offline"
-	DeviceStatusValueOffline string = "offline"
-
-	// DeviceStatusValueActive captures enum value "active"
-	DeviceStatusValueActive string = "active"
-
-	// DeviceStatusValuePlanned captures enum value "planned"
-	DeviceStatusValuePlanned string = "planned"
-
-	// DeviceStatusValueStaged captures enum value "staged"
-	DeviceStatusValueStaged string = "staged"
-
-	// DeviceStatusValueFailed captures enum value "failed"
-	DeviceStatusValueFailed string = "failed"
-
-	// DeviceStatusValueInventory captures enum value "inventory"
-	DeviceStatusValueInventory string = "inventory"
-
-	// DeviceStatusValueDecommissioning captures enum value "decommissioning"
-	DeviceStatusValueDecommissioning string = "decommissioning"
-)
-
-// prop value enum
-func (m *DeviceStatus) validateValueEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, deviceStatusTypeValuePropEnum, true); err != nil {
-		return err
-	}
 	return nil
 }
 
 func (m *DeviceStatus) validateValue(formats strfmt.Registry) error {
 
 	if err := validate.Required("status"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("status"+"."+"value", "body", *m.Value); err != nil {
 		return err
 	}
 

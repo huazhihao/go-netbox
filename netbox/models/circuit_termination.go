@@ -41,9 +41,8 @@ type CircuitTermination struct {
 	// Required: true
 	Circuit *NestedCircuit `json:"circuit"`
 
-	// Connected endpoint
-	// Read Only: true
-	ConnectedEndpoint string `json:"connected_endpoint,omitempty"`
+	// connected endpoint
+	ConnectedEndpoint *NestedInterface `json:"connected_endpoint,omitempty"`
 
 	// Connected endpoint type
 	// Read Only: true
@@ -100,6 +99,10 @@ func (m *CircuitTermination) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCircuit(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateConnectedEndpoint(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -169,6 +172,24 @@ func (m *CircuitTermination) validateCircuit(formats strfmt.Registry) error {
 		if err := m.Circuit.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("circuit")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CircuitTermination) validateConnectedEndpoint(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ConnectedEndpoint) { // not required
+		return nil
+	}
+
+	if m.ConnectedEndpoint != nil {
+		if err := m.ConnectedEndpoint.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("connected_endpoint")
 			}
 			return err
 		}

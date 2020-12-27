@@ -16828,9 +16828,7 @@
           "readOnly": true
         },
         "connected_endpoint": {
-          "title": "Connected endpoint",
-          "type": "string",
-          "readOnly": true
+          "$ref": "#/definitions/NestedInterface"
         },
         "connection_status": {
           "title": "Connection status",
